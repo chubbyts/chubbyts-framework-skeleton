@@ -44,8 +44,8 @@
     "node": ">=14"
   },
   "dependencies": {
-    "@chubbyts/chubbyts-dic": "^1.0.1",
-    "@chubbyts/chubbyts-dic-config": "^1.0.0",
+    "@chubbyts/chubbyts-dic": "^1.0.2",
+    "@chubbyts/chubbyts-dic-config": "^1.0.1",
     "@chubbyts/chubbyts-dic-types": "^1.0.0",
     "@chubbyts/chubbyts-framework": "^1.0.3",
     "@chubbyts/chubbyts-framework-router-path-to-regexp": "^1.0.0",
