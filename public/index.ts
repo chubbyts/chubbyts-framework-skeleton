@@ -11,8 +11,11 @@ import {
   StreamFromResourceFactory,
   UriFactory,
 } from '@chubbyts/chubbyts-http-types/dist/message-factory';
+import { Config } from '../config/prod';
 
 const boostrapedContainer = container(process.env.APP_ENV ?? 'dev');
+
+const config = boostrapedContainer.get<Config>('config');
 
 const app = createApplication(boostrapedContainer.get<Array<Middleware>>('middlewares'));
 
@@ -28,8 +31,7 @@ const server = createServer(async (req: IncomingMessage, res: ServerResponse) =>
   responseToNodeEmitter(await app(nodeToServerRequestFactory(req)), res);
 });
 
-const host = '0.0.0.0';
-const port = 8080;
+const { port, host } = config.server;
 
 server.listen(port, host, () => {
   console.log(`Listening to ${host}:${port}`);

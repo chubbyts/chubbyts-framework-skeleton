@@ -1,6 +1,6 @@
 import { describe, expect, test } from '@jest/globals';
 import { ServerRequest, Response } from '@chubbyts/chubbyts-http-types/dist/message';
-import { createPingHandler } from '../src/handler';
+import { createPingHandler } from '../../src/handler';
 import { ResponseFactory } from '@chubbyts/chubbyts-http-types/dist/message-factory';
 import { Duplex } from 'stream';
 

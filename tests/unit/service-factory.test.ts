@@ -15,7 +15,7 @@ import {
   streamFactoryServiceFactory,
   streamFromResourceFactoryServiceFactory,
   uriFactoryServiceFactory,
-} from '../src/service-factory';
+} from '../../src/service-factory';
 
 const createGetMock = (givenCalls: Array<[string, unknown]>) => {
   const calls = [...givenCalls];
@@ -86,7 +86,7 @@ describe('service-factory', () => {
   });
 
   test('matchServiceFactory', () => {
-    const calls: Array<[string, unknown]> = [['routes', () => new Map()]];
+    const calls: Array<[string, unknown]> = [['routes', []]];
 
     const get = jest.fn(createGetMock(calls));
 
@@ -178,15 +178,11 @@ describe('service-factory', () => {
 
     const routes = routesServiceFactory(container);
 
-    expect(routes).toBeInstanceOf(Function);
+    expect(routes).toBeInstanceOf(Array);
 
-    const routesByName = routes();
-
-    expect(routesByName).toBeInstanceOf(Map);
-
-    expect(routesByName).toMatchInlineSnapshot(`
-      Map {
-        "ping" => Object {
+    expect(routes).toMatchInlineSnapshot(`
+      Array [
+        Object {
           "_route": "Route",
           "attributes": Object {},
           "handler": [Function],
@@ -196,7 +192,7 @@ describe('service-factory', () => {
           "path": "/ping",
           "pathOptions": Object {},
         },
-      }
+      ]
     `);
 
     expect(get).toHaveBeenCalledTimes(calls.length);

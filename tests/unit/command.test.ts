@@ -2,7 +2,7 @@ import { describe, expect, test } from '@jest/globals';
 import { randomBytes } from 'crypto';
 import { mkdirSync, readdirSync, writeFileSync } from 'fs';
 import { tmpdir } from 'os';
-import { createCleanDirectoriesCommand } from '../src/command';
+import { createCleanDirectoriesCommand } from '../../src/command';
 
 describe('command', () => {
   describe('createCleanDirectoriesCommand', () => {

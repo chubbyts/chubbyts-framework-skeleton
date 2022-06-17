@@ -28,12 +28,16 @@ export type Config = {
     options: Omit<LoggerOptions, 'level'> & { level: 'fatal' | 'error' | 'warn' | 'info' | 'debug' };
     stream: DestinationStream;
   };
+  server: {
+    host: string;
+    port: number;
+  };
 };
 
 const rootDir = realpathSync(__dirname + '/..');
 
-export default (env: string): Config => {
-  const cacheDir = rootDir + '/var/cache/' + env;
+export default (_env: string): Config => {
+  const cacheDir = rootDir + '/var/cache';
   const logDir = rootDir + '/var/log';
 
   let logStream: WriteStream | undefined;
@@ -70,12 +74,16 @@ export default (env: string): Config => {
       stream: {
         write: (msg: string): void => {
           if (!logStream) {
-            logStream = createWriteStream(logDir + '/' + env + '.log', { flags: 'a' });
+            logStream = createWriteStream(logDir + '/application.log', { flags: 'a' });
           }
 
           logStream.write(msg);
         },
       },
+    },
+    server: {
+      host: process.env.SERVER_HOST ?? '0.0.0.0',
+      port: process.env.SERVER_PORT ? parseInt(process.env.SERVER_PORT, 10) : 8080,
     },
   };
 };

@@ -23,11 +23,11 @@ A minimal skeleton for [chubbyts-framework][5].
 ## Requirements
 
  * node: 14
- * [@chubbyts/chubbyts-dic][2]: ^1.0.1
- * [@chubbyts/chubbyts-dic-config][3]: ^1.0.1
+ * [@chubbyts/chubbyts-dic][2]: ^1.0.2
+ * [@chubbyts/chubbyts-dic-config][3]: ^1.0.2
  * [@chubbyts/chubbyts-dic-types][4]: ^1.0.0
- * [@chubbyts/chubbyts-framework][5]: ^1.0.3
- * [@chubbyts/chubbyts-framework-router-path-to-regexp][6]: ^1.0.0
+ * [@chubbyts/chubbyts-framework][5]: ^1.2.0
+ * [@chubbyts/chubbyts-framework-router-path-to-regexp][6]: ^1.0.2
  * [@chubbyts/chubbyts-http][7]: ^1.0.0
  * [@chubbyts/chubbyts-http-types][8]: ^1.0.0
  * [@chubbyts/chubbyts-log-types][9]: ^1.0.0
@@ -40,10 +40,14 @@ A minimal skeleton for [chubbyts-framework][5].
 ```sh
 git clone https://github.com/chubbyts/chubbyts-framework-skeleton.git my-project
 cd my-project
-rm -r .git
-git init
+rm -rf .git
+npm install
+npm start
 ```
 
+## Urls
+
+* GET http://localhost:8080/ping
 ## Structure
 
 ### Command

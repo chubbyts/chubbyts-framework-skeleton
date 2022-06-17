@@ -21,6 +21,7 @@ jobs:
       - run: npm run build
       - run: npm run cs
       - run: npm test -- --coverage --no-cache
+      - run: npm run test:integration --no-cache
       - run: npm run infection
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
@@ -38,6 +39,7 @@ jobs:
       - run: npm run build
       - run: npm run cs
       - run: npm test -- --coverage --no-cache
+      - run: npm run test:integration --no-cache
       - run: npm run infection
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
@@ -55,6 +57,7 @@ jobs:
       - run: npm run build
       - run: npm run cs
       - run: npm test -- --coverage --no-cache
+      - run: npm run test:integration --no-cache
       - run: npm run infection
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
