@@ -26,14 +26,15 @@ A minimal skeleton for [chubbyts-framework][5].
  * [@chubbyts/chubbyts-dic][2]: ^1.0.2
  * [@chubbyts/chubbyts-dic-config][3]: ^1.0.2
  * [@chubbyts/chubbyts-dic-types][4]: ^1.0.0
- * [@chubbyts/chubbyts-framework][5]: ^1.2.0
+ * [@chubbyts/chubbyts-framework][5]: ^1.3.0
  * [@chubbyts/chubbyts-framework-router-path-to-regexp][6]: ^1.0.2
  * [@chubbyts/chubbyts-http][7]: ^1.0.0
  * [@chubbyts/chubbyts-http-types][8]: ^1.0.0
  * [@chubbyts/chubbyts-log-types][9]: ^1.0.0
- * [@chubbyts/chubbyts-pino-adapter][10]: ^1.0.0
- * [commander][11]: ^9.3.0
- * [pino][12]: ^7.11.0
+ * [@chubbyts/chubbyts-node-http-bridge][10]: ^1.0.0
+ * [@chubbyts/chubbyts-pino-adapter][11]: ^1.0.0
+ * [commander][12]: ^9.3.0
+ * [pino][13]: ^7.11.0
 
 ## Installation
 
@@ -54,19 +55,19 @@ npm start
 
 Commands is code that is meant to be executed on command line.
 
- * [src/command.ts][13]
+ * [src/command.ts][20]
 
 ### Handler
 
 Handler alias Controller, or Controller actions to be more precise.
 
- * [src/handler.ts][14]
+ * [src/handler.ts][21]
 
 ### ServiceFactory
 
 Service factories are the glue code of the dependeny injection container.
 
- * [src/service-factory.ts][15]
+ * [src/service-factory.ts][22]
 
 ## Copyright
 
@@ -81,9 +82,11 @@ Dominik Zogg 2022
 [7]: https://www.npmjs.com/package/@chubbyts/chubbyts-http
 [8]: https://www.npmjs.com/package/@chubbyts/chubbyts-http-types
 [9]: https://www.npmjs.com/package/@chubbyts/chubbyts-log-types
-[10]: https://www.npmjs.com/package/@chubbyts/chubbyts-pino-adapter
-[11]: https://www.npmjs.com/package/commander
-[12]: https://www.npmjs.com/package/pino
-[13]: src/command.ts
-[14]: src/handler.ts
-[15]: src/service-factory.ts
+[10]: https://www.npmjs.com/package/@chubbyts/chubbyts-node-http-bridge
+[11]: https://www.npmjs.com/package/@chubbyts/chubbyts-pino-adapter
+[12]: https://www.npmjs.com/package/commander
+[13]: https://www.npmjs.com/package/pino
+
+[20]: src/command.ts
+[21]: src/handler.ts
+[22]: src/service-factory.ts
