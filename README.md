@@ -36,19 +36,33 @@ A minimal skeleton for [chubbyts-framework][5].
  * [commander][12]: ^9.3.0
  * [pino][13]: ^7.11.0
 
+## Environment
+
+Add the following environment variable to your system, for example within `~/.bashrc`:
+
+```sh
+export USER_ID=$(id -u)
+export GROUP_ID=$(id -g)
+```
+
+### Docker
+
+```sh
+docker-compose up -d
+docker-compose exec node bash
+```
+
 ## Installation
 
 ```sh
-git clone https://github.com/chubbyts/chubbyts-framework-skeleton.git my-project
-cd my-project
-rm -rf .git
 npm install
 npm start
 ```
 
 ## Urls
 
-* GET http://localhost:10080/ping
+* GET https://localhost:10443/ping
+
 ## Structure
 
 ### Command
