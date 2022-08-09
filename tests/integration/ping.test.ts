@@ -8,7 +8,9 @@ test('ping', async () => {
 
   const responseData = await response.json();
 
-  expect(responseData).toHaveProperty('datetime');
+  expect(responseData).toEqual({
+    datetime: expect.any(String),
+  });
 
   const date = new Date(responseData.datetime);
 

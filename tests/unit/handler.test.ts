@@ -7,7 +7,11 @@ import { Duplex } from 'stream';
 describe('handler', () => {
   test('createPingHandler', async () => {
     const end = jest.fn((givenChunk) => {
-      expect(JSON.parse(givenChunk)).toHaveProperty('datetime');
+      const data = JSON.parse(givenChunk);
+
+      expect(data).toEqual({
+        datetime: expect.any(String),
+      });
     });
 
     const body = { end } as unknown as Duplex;
