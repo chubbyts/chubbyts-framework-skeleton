@@ -27,3 +27,4 @@ eval "$(fnm env --shell=bash --use-on-cd)"
 if [ -f "$HOME/.bash_docker" ]; then
     source $HOME/.bash_docker
 fi
+

@@ -27,7 +27,7 @@ services:
     container_name: chubbyts-framework-skeleton-nginx
     hostname: chubbyts-framework-skeleton-nginx
     build:
-      dockerfile: ./docker/dev/nginx/Dockerfile
+      dockerfile: ./docker/prod/nginx/Dockerfile
       context: ./
     environment:
       SERVER_HOST: '10443'
