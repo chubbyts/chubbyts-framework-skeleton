@@ -13,7 +13,7 @@ const startServer = async () => {
   return new Promise((resolve, reject) => {
     const child = spawn(process.argv[0], ['node_modules/.bin/ts-node', 'public/index.ts'], {
       env: {
-        APP_ENV: 'jest',
+        NODE_ENV: 'jest',
         SERVER_HOST: testServerHost,
         SERVER_PORT: testServerPort,
       },
