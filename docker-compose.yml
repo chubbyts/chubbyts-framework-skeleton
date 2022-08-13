@@ -4,7 +4,7 @@ services:
     container_name: chubbyts-framework-skeleton-node
     hostname: chubbyts-framework-skeleton-node
     build:
-      dockerfile: ./docker/dev/node/Dockerfile
+      dockerfile: ./docker/development/node/Dockerfile
       context: ./
       args:
         USER_ID: ${USER_ID:-1000}
@@ -27,7 +27,7 @@ services:
     container_name: chubbyts-framework-skeleton-nginx
     hostname: chubbyts-framework-skeleton-nginx
     build:
-      dockerfile: ./docker/prod/nginx/Dockerfile
+      dockerfile: ./docker/production/nginx/Dockerfile
       context: ./
     environment:
       SERVER_HOST: '10443'
