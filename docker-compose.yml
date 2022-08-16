@@ -31,7 +31,7 @@ services:
       context: ./
     environment:
       SERVER_HOST: '10443'
-      NODE_SERVER_HOST: 'node' # 172.17.0.1, if node is running on host (drop service node and depends on node)
+      NODE_SERVER_HOST: 'node'
       NODE_SERVER_PORT: '10080'
     ports:
       - '10443:10443'
