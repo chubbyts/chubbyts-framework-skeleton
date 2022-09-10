@@ -109,7 +109,7 @@ describe('service-factory', () => {
     expect(middlewares).toBeInstanceOf(Array);
 
     expect(middlewares).toMatchInlineSnapshot(`
-      Array [
+      [
         [Function],
         [Function],
       ]
@@ -181,16 +181,16 @@ describe('service-factory', () => {
     expect(routes).toBeInstanceOf(Array);
 
     expect(routes).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "_route": "Route",
-          "attributes": Object {},
+          "attributes": {},
           "handler": [Function],
           "method": "GET",
-          "middlewares": Array [],
+          "middlewares": [],
           "name": "ping",
           "path": "/ping",
-          "pathOptions": Object {},
+          "pathOptions": {},
         },
       ]
     `);
