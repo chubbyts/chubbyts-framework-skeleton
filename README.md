@@ -61,7 +61,7 @@ npm start
 
 ## Urls
 
-* GET https://localhost:10443/ping
+* GET https://localhost/ping
 
 ## Structure
 

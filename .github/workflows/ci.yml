@@ -7,8 +7,28 @@ on:
     - cron: '0 0 * * *'
 
 jobs:
+  docker:
+    name: docker (development container)
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: docker build
+        run: docker build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) -f docker/development/node/Dockerfile . -t node
+      - name: npm install
+        run: docker container run -v ${GITHUB_WORKSPACE}:/app node /bin/bash -c 'source ~/.bashrc && npm install'
+      - name: npm run cs
+        run: docker container run -v ${GITHUB_WORKSPACE}:/app node /bin/bash -c 'source ~/.bashrc && npm run cs'
+      - name: npm run test -- --coverage --no-cache
+        run: docker container run -v ${GITHUB_WORKSPACE}:/app node /bin/bash -c 'source ~/.bashrc && npm run test -- --coverage --no-cache'
+      - name: npm run test:integration --no-cache
+        run: docker container run -v ${GITHUB_WORKSPACE}:/app node /bin/bash -c 'source ~/.bashrc && npm run test:integration --no-cache'
+      - name: npm run infection
+        run: docker container run -v ${GITHUB_WORKSPACE}:/app node /bin/bash -c 'source ~/.bashrc && npm run infection'
+      - name: npm run build
+        run: docker container run -v ${GITHUB_WORKSPACE}:/app node /bin/bash -c 'source ~/.bashrc && npm run build'
   docker-compose:
-    name: docker-compose
+    name: docker-compose (production container)
     runs-on: ubuntu-20.04
     steps:
       - name: checkout
@@ -16,9 +36,9 @@ jobs:
       - name: docker build / start
         run: docker-compose -f docker-compose.ci.yml up -d
       - name: wait for server
-        run: docker-compose -f docker-compose.ci.yml exec -T node bash -c 'while ! nc -z localhost 10080; do sleep 0.1; done'
+        run: docker-compose -f docker-compose.ci.yml exec -T node bash -c 'while ! nc -z localhost 1234; do sleep 0.1; done'
       - name: ping
-        run: docker-compose -f docker-compose.ci.yml exec -T node bash -c 'curl http://localhost:10080/ping -vvv'
+        run: docker-compose -f docker-compose.ci.yml exec -T node bash -c 'curl http://localhost:1234/ping -vvv'
       - name: docker stop
         run: docker-compose -f docker-compose.ci.yml stop
   node14:
@@ -36,9 +56,9 @@ jobs:
       - run: npm run test -- --coverage --no-cache
       - run: npm run test:integration --no-cache
       - run: npm run infection
-      - run: npm run build
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+      - run: npm run build
   node16:
     name: Node 16
     runs-on: ubuntu-20.04
@@ -54,9 +74,9 @@ jobs:
       - run: npm run test -- --coverage --no-cache
       - run: npm run test:integration --no-cache
       - run: npm run infection
-      - run: npm run build
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+      - run: npm run build
   node18:
     name: Node 18
     runs-on: ubuntu-20.04
@@ -72,9 +92,9 @@ jobs:
       - run: npm run test -- --coverage --no-cache
       - run: npm run test:integration --no-cache
       - run: npm run infection
-      - run: npm run build
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+      - run: npm run build
       - name: coveralls.io
         uses: coverallsapp/github-action@master
         with:

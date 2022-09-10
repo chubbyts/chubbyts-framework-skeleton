@@ -12,10 +12,8 @@ services:
     environment:
       NODE_ENV: development
       SERVER_HOST: '0.0.0.0'
-      SERVER_PORT: '10080'
+      SERVER_PORT: '1234'
       SSH_AUTH_SOCK: /ssh-agent
-    ports:
-      - '10080:10080'
     volumes:
       - ${PWD}:/app
       - ~/.bash_docker:/home/node/.bash_docker
@@ -26,19 +24,14 @@ services:
   nginx:
     container_name: chubbyts-framework-skeleton-nginx
     hostname: chubbyts-framework-skeleton-nginx
-    build:
-      dockerfile: ./docker/production/nginx/Dockerfile
-      context: ./
+    image: nginx
     environment:
-      SERVER_HOST: '10443'
+      SERVER_PORT: '443'
       NODE_SERVER_HOST: 'node'
-      NODE_SERVER_PORT: '10080'
+      NODE_SERVER_PORT: '1234'
     ports:
-      - '10443:10443'
-    command: >
-      /bin/bash -c "envsubst \"`for v in $$(compgen -v);do printf '$${%s} ' $$v;done`'\"
-      < /etc/nginx/nginx.conf.template
-      > /etc/nginx/nginx.conf
-      && nginx -g 'daemon off;'"
+      - '443:443'
+    volumes:
+      - ./docker/development/nginx:/etc/nginx/templates
     depends_on:
       - node

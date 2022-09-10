@@ -9,4 +9,4 @@ services:
     environment:
       NODE_ENV: production
       SERVER_HOST: '0.0.0.0'
-      SERVER_PORT: '10080'
+      SERVER_PORT: '1234'
