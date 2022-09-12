@@ -10,3 +10,27 @@ services:
       NODE_ENV: production
       SERVER_HOST: '0.0.0.0'
       SERVER_PORT: '1234'
+  swagger-ui:
+    container_name: chubbyts-framework-skeleton-swagger-ui
+    hostname: chubbyts-framework-skeleton-swagger-ui
+    image: swaggerapi/swagger-ui
+    environment:
+      BASE_URL: /swagger
+      URLS: '[ { url: "/openapi" } ]'
+  nginx:
+    container_name: chubbyts-framework-skeleton-nginx
+    hostname: chubbyts-framework-skeleton-nginx
+    image: nginx
+    environment:
+      SERVER_PORT: '443'
+      NODE_SERVER_HOST: 'node'
+      NODE_SERVER_PORT: '1234'
+      SWAGGER_SERVER_HOST: 'swagger-ui'
+      SWAGGER_SERVER_PORT: '8080'
+    ports:
+      - '443:443'
+    volumes:
+      - ./docker/development/nginx:/etc/nginx/templates
+    depends_on:
+      - node
+      - swagger-ui
