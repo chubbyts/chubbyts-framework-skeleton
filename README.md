@@ -27,12 +27,12 @@ A minimal skeleton for [chubbyts-framework][5].
  * [@chubbyts/chubbyts-dic-config][3]: ^1.0.2
  * [@chubbyts/chubbyts-dic-types][4]: ^1.0.0
  * [@chubbyts/chubbyts-framework][5]: ^1.3.2
- * [@chubbyts/chubbyts-framework-router-path-to-regexp][6]: ^1.0.2
- * [@chubbyts/chubbyts-http][7]: ^1.0.0
+ * [@chubbyts/chubbyts-framework-router-path-to-regexp][6]: ^1.0.3
+ * [@chubbyts/chubbyts-http][7]: ^1.0.1
  * [@chubbyts/chubbyts-http-types][8]: ^1.0.0
  * [@chubbyts/chubbyts-log-types][9]: ^1.0.0
  * [@chubbyts/chubbyts-node-http-bridge][10]: ^1.0.0
- * [@chubbyts/chubbyts-pino-adapter][11]: ^1.1.0
+ * [@chubbyts/chubbyts-pino-adapter][11]: ^1.1.1
  * [commander][12]: ^9.4.0
  * [pino][13]: ^8.5.0
 
