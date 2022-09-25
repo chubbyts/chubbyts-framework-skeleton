@@ -25,7 +25,7 @@ import {
 import { createPinoAdapter } from '@chubbyts/chubbyts-pino-adapter/dist/pino-adapter';
 import { createPathToRegexpRouteMatcher } from '@chubbyts/chubbyts-framework-router-path-to-regexp/dist/path-to-regexp-router';
 import pino from 'pino';
-import { createRoutesByName } from '@chubbyts/chubbyts-framework/dist/router/routes';
+import { createRoutesByName, RoutesByName } from '@chubbyts/chubbyts-framework/dist/router/routes-by-name';
 import { createLazyHandler } from '@chubbyts/chubbyts-framework/dist/handler/lazy-handler';
 import { createGetRoute, Route } from '@chubbyts/chubbyts-framework/dist/router/route';
 import { createPingHandler } from './handler';
@@ -50,7 +50,7 @@ export const loggerServiceFactory = (container: Container): Logger => {
 };
 
 export const matchServiceFactory = (container: Container): Match => {
-  return createPathToRegexpRouteMatcher(createRoutesByName(container.get<Array<Route>>('routes')));
+  return createPathToRegexpRouteMatcher(container.get<RoutesByName>('routesByName'));
 };
 
 export const middlewaresServiceFactory = (container: Container): Array<Middleware> => {
@@ -85,6 +85,10 @@ export const routesServiceFactory = (container: Container): Array<Route> => {
       handler: h('pingHandler'),
     }),
   ];
+};
+
+export const routesByNameServiceFactory = (container: Container): RoutesByName => {
+  return createRoutesByName(container.get<Array<Route>>('routes'));
 };
 
 export const serverRequestFactoryServiceFactory = (container: Container): ServerRequestFactory => {

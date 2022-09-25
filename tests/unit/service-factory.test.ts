@@ -10,6 +10,7 @@ import {
   requestFactoryServiceFactory,
   responseFactoryServiceFactory,
   routeMatcherMiddlewareServiceFactory,
+  routesByNameServiceFactory,
   routesServiceFactory,
   serverRequestFactoryServiceFactory,
   streamFactoryServiceFactory,
@@ -86,7 +87,7 @@ describe('service-factory', () => {
   });
 
   test('matchServiceFactory', () => {
-    const calls: Array<[string, unknown]> = [['routes', []]];
+    const calls: Array<[string, unknown]> = [['routesByName', new Map()]];
 
     const get = jest.fn(createGetMock(calls));
 
@@ -194,6 +195,18 @@ describe('service-factory', () => {
         },
       ]
     `);
+
+    expect(get).toHaveBeenCalledTimes(calls.length);
+  });
+
+  test('routesByNameServiceFactory', () => {
+    const calls: Array<[string, unknown]> = [['routes', []]];
+
+    const get = jest.fn(createGetMock(calls));
+
+    const container = { get } as unknown as Container;
+
+    expect(routesByNameServiceFactory(container)).toBeInstanceOf(Map);
 
     expect(get).toHaveBeenCalledTimes(calls.length);
   });
