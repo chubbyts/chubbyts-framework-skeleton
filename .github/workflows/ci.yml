@@ -33,6 +33,8 @@ jobs:
         run: docker container run -v ${GITHUB_WORKSPACE}:/app node /bin/bash -c 'source ~/.bashrc && npm install'
       - name: npm run cs
         run: docker container run -v ${GITHUB_WORKSPACE}:/app node /bin/bash -c 'source ~/.bashrc && npm run cs'
+      - name: npm run lint
+        run: docker container run -v ${GITHUB_WORKSPACE}:/app node /bin/bash -c 'source ~/.bashrc && npm run lint'
       - name: npm run test -- --coverage --no-cache
         run: docker container run -v ${GITHUB_WORKSPACE}:/app node /bin/bash -c 'source ~/.bashrc && npm run test -- --coverage --no-cache'
       - name: npm run test:integration --no-cache
@@ -53,6 +55,7 @@ jobs:
           node-version: '14'
       - run: npm install
       - run: npm run cs
+      - run: npm run lint
       - run: npm run test -- --coverage --no-cache
       - run: npm run test:integration --no-cache
       - run: npm run infection
@@ -71,6 +74,7 @@ jobs:
           node-version: '16'
       - run: npm install
       - run: npm run cs
+      - run: npm run lint
       - run: npm run test -- --coverage --no-cache
       - run: npm run test:integration --no-cache
       - run: npm run infection
@@ -89,6 +93,7 @@ jobs:
           node-version: '18'
       - run: npm install
       - run: npm run cs
+      - run: npm run lint
       - run: npm run test -- --coverage --no-cache
       - run: npm run test:integration --no-cache
       - run: npm run infection
