@@ -1,5 +1,5 @@
 import { Container } from '@chubbyts/chubbyts-dic-types/dist/container';
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect, jest, test } from '@jest/globals';
 import {
   cleanDirectoriesCommandServiceFactory,
   errorMiddlewareServiceFactory,
