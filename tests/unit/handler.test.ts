@@ -6,7 +6,7 @@ import { Duplex } from 'stream';
 
 describe('handler', () => {
   test('createPingHandler', async () => {
-    const end = jest.fn((givenChunk) => {
+    const end = jest.fn((givenChunk: string) => {
       const data = JSON.parse(givenChunk);
 
       expect(data).toEqual({
