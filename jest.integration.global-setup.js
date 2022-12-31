@@ -1,6 +1,8 @@
 const { spawn } = require('child_process');
 const fetch = require('cross-fetch');
 
+const build = require('./build');
+
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -14,7 +16,9 @@ const timeout = 20000;
 const iterationTimeout = 500;
 
 const startServer = async () => {
-  const child = spawn(process.argv[0], ['node_modules/.bin/ts-node', 'bootstrap/index.ts'], {
+  await build();
+
+  const child = spawn(process.argv[0], ['dist/bootstrap/index.js'], {
     env: {
       NODE_ENV: 'jest',
       SERVER_HOST: testServerHost,
@@ -39,7 +43,7 @@ const startServer = async () => {
     }
   }
 
-  throw new Error(`Timeout in starting the server`);
+  throw new Error('Timeout in starting the server');
 };
 
 module.exports = async () => {
@@ -48,7 +52,13 @@ module.exports = async () => {
     global.__HTTP_SERVER__ = await startServer();
   }
 
-  console.log(JSON.stringify({
-    INTEGRATION_ENDPOINT: process.env.INTEGRATION_ENDPOINT,
-  }, null, 2));
+  console.log(
+    JSON.stringify(
+      {
+        INTEGRATION_ENDPOINT: process.env.INTEGRATION_ENDPOINT,
+      },
+      null,
+      2,
+    ),
+  );
 };
