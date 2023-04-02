@@ -1,19 +1,38 @@
+import { createServer } from 'http';
 import { Command } from 'commander';
 import { containerFactory } from '../bootstrap/container';
-import { CleanDirectoriesCommand } from '../src/command';
-
-const container = containerFactory(process.env.NODE_ENV as string);
+import type { CleanDirectoriesCommand } from '../src/command';
 
 const program = new Command();
 
-const run = (action: (...args: Array<string>) => Promise<number> | number) => {
+const container = containerFactory(process.env.NODE_ENV as string);
+
+type Action = (...args: Array<string>) => Promise<number> | number;
+
+const runAction = async (action: Action, args: Array<string>): Promise<number> => {
+  try {
+    return await action(...args);
+  } catch (e) {
+    console.error(e);
+    return -999;
+  }
+};
+
+const run = (action: Action) => {
   return async (...args: Array<string>): Promise<void> => {
-    try {
-      process.exit(await action(...args));
-    } catch (e) {
-      console.error(e);
-      process.exit(-999);
-    }
+    const server = createServer((_, res) => {
+      res.writeHead(200);
+      res.end();
+    });
+
+    server.listen(9999);
+
+    const exitCode = await runAction(action, args);
+
+    setTimeout(() => {
+      server.close();
+      process.exit(exitCode);
+    }, 1000);
   };
 };
 
@@ -21,14 +40,11 @@ const run = (action: (...args: Array<string>) => Promise<number> | number) => {
   program
     .command('clean-directories')
     .argument('[directoryNames]')
-    .description('clean the given directories by names as commaseperated values.')
+    .description('Delete everything within a given directory.')
     .action(
       run((directoryNamesAsString: string): number => {
-        const directoryNames = directoryNamesAsString
-          ? directoryNamesAsString.split(',').map((directoryName) => directoryName.trim())
-          : [];
         const command = container.get<CleanDirectoriesCommand>('cleanDirectoriesCommand');
-        return command(directoryNames);
+        return command(directoryNamesAsString.split(',').map((directoryName) => directoryName.trim()));
       }),
     );
 

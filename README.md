@@ -22,7 +22,7 @@ A minimal skeleton for [chubbyts-framework][5].
 
 ## Requirements
 
- * node: 14
+ * node: 16
  * [@chubbyts/chubbyts-dic][2]: ^1.0.3
  * [@chubbyts/chubbyts-dic-config][3]: ^1.0.3
  * [@chubbyts/chubbyts-dic-types][4]: ^1.0.1

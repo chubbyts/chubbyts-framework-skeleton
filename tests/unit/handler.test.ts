@@ -1,8 +1,8 @@
+import type { Duplex } from 'stream';
 import { describe, expect, jest, test } from '@jest/globals';
-import { ServerRequest, Response } from '@chubbyts/chubbyts-http-types/dist/message';
+import type { ServerRequest, Response } from '@chubbyts/chubbyts-http-types/dist/message';
+import type { ResponseFactory } from '@chubbyts/chubbyts-http-types/dist/message-factory';
 import { createPingHandler } from '../../src/handler';
-import { ResponseFactory } from '@chubbyts/chubbyts-http-types/dist/message-factory';
-import { Duplex } from 'stream';
 
 describe('handler', () => {
   test('createPingHandler', async () => {

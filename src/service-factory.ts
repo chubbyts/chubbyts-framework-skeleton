@@ -1,9 +1,9 @@
-import { Container } from '@chubbyts/chubbyts-dic-types/dist/container';
-import { Middleware } from '@chubbyts/chubbyts-http-types/dist/middleware';
+import type { Container } from '@chubbyts/chubbyts-dic-types/dist/container';
+import type { Middleware } from '@chubbyts/chubbyts-http-types/dist/middleware';
 import { createLazyMiddleware } from '@chubbyts/chubbyts-framework/dist/middleware/lazy-middleware';
 import { createErrorMiddleware } from '@chubbyts/chubbyts-framework/dist/middleware/error-middleware';
 import { createRouteMatcherMiddleware } from '@chubbyts/chubbyts-framework/dist/middleware/route-matcher-middleware';
-import {
+import type {
   RequestFactory,
   ResponseFactory,
   ServerRequestFactory,
@@ -11,9 +11,9 @@ import {
   StreamFromResourceFactory,
   UriFactory,
 } from '@chubbyts/chubbyts-http-types/dist/message-factory';
-import { Config } from '../config/production';
-import { createLogger, Logger } from '@chubbyts/chubbyts-log-types/dist/log';
-import { Match } from '@chubbyts/chubbyts-framework/dist/router/route-matcher';
+import type { Logger } from '@chubbyts/chubbyts-log-types/dist/log';
+import { createLogger } from '@chubbyts/chubbyts-log-types/dist/log';
+import type { Match } from '@chubbyts/chubbyts-framework/dist/router/route-matcher';
 import {
   createRequestFactory,
   createResponseFactory,
@@ -24,15 +24,19 @@ import {
 } from '@chubbyts/chubbyts-http/dist/message-factory';
 import { createPinoAdapter } from '@chubbyts/chubbyts-pino-adapter/dist/pino-adapter';
 import { createPathToRegexpRouteMatcher } from '@chubbyts/chubbyts-framework-router-path-to-regexp/dist/path-to-regexp-router';
-import pino from 'pino';
-import { createRoutesByName, RoutesByName } from '@chubbyts/chubbyts-framework/dist/router/routes-by-name';
+import { pino } from 'pino';
+import type { RoutesByName } from '@chubbyts/chubbyts-framework/dist/router/routes-by-name';
+import { createRoutesByName } from '@chubbyts/chubbyts-framework/dist/router/routes-by-name';
 import { createLazyHandler } from '@chubbyts/chubbyts-framework/dist/handler/lazy-handler';
-import { createGetRoute, Route } from '@chubbyts/chubbyts-framework/dist/router/route';
+import type { Route } from '@chubbyts/chubbyts-framework/dist/router/route';
+import { createGetRoute } from '@chubbyts/chubbyts-framework/dist/router/route';
+import type { Config } from '../config/production';
 import { createPingHandler } from './handler';
-import { CleanDirectoriesCommand, createCleanDirectoriesCommand } from './command';
+import type { CleanDirectoriesCommand } from './command';
+import { createCleanDirectoriesCommand } from './command';
 
 export const cleanDirectoriesCommandServiceFactory = (container: Container): CleanDirectoriesCommand => {
-  return createCleanDirectoriesCommand(container.get<Config>('config').directories);
+  return createCleanDirectoriesCommand(container.get<Config>('config').directories, container.get<Logger>('logger'));
 };
 
 export const errorMiddlewareServiceFactory = (container: Container): Middleware => {

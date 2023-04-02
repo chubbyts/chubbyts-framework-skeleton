@@ -1,6 +1,6 @@
-import { DestinationStream, LoggerOptions } from 'pino';
-import { createWriteStream, realpathSync, WriteStream } from 'fs';
-import { ConfigFactory } from '@chubbyts/chubbyts-dic-config/dist/dic-config';
+import { createWriteStream, realpathSync } from 'fs';
+import type { DestinationStream, LoggerOptions } from 'pino';
+import type { ConfigFactory } from '@chubbyts/chubbyts-dic-config/dist/dic-config';
 import {
   cleanDirectoriesCommandServiceFactory,
   errorMiddlewareServiceFactory,
@@ -43,7 +43,7 @@ export const configFactory = (env: string): Config => {
   const cacheDir = rootDir + '/var/cache';
   const logDir = rootDir + '/var/log';
 
-  let logStream: WriteStream | undefined;
+  const logStream = createWriteStream(logDir + '/application.log', { flags: 'a' });
 
   return {
     debug: false,
@@ -77,11 +77,8 @@ export const configFactory = (env: string): Config => {
       },
       stream: {
         write: (msg: string): void => {
-          if (!logStream) {
-            logStream = createWriteStream(logDir + '/application.log', { flags: 'a' });
-          }
-
           logStream.write(msg);
+          console.log(msg);
         },
       },
     },

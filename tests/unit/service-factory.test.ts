@@ -1,4 +1,4 @@
-import { Container } from '@chubbyts/chubbyts-dic-types/dist/container';
+import type { Container } from '@chubbyts/chubbyts-dic-types/dist/container';
 import { describe, expect, jest, test } from '@jest/globals';
 import {
   cleanDirectoriesCommandServiceFactory,
@@ -18,13 +18,17 @@ import {
   uriFactoryServiceFactory,
 } from '../../src/service-factory';
 
-const createGetMock = (givenCalls: Array<[string, unknown]>) => {
-  const calls = [...givenCalls];
+export type CallMock = [string, unknown];
+
+export const createContainerGetCallsMock = (callMocks: Array<CallMock>) => {
+  const calls = [...callMocks];
 
   return (givenId: string) => {
+    // eslint-disable-next-line functional/immutable-data
     const call = calls.shift();
+
     if (!call) {
-      fail('Missing call');
+      throw new Error('Missing call');
     }
 
     const [id, service] = call;
@@ -37,9 +41,12 @@ const createGetMock = (givenCalls: Array<[string, unknown]>) => {
 
 describe('service-factory', () => {
   test('cleanDirectoriesCommandServiceFactory', () => {
-    const calls: Array<[string, unknown]> = [['config', { directories: new Map([]) }]];
+    const calls: Array<CallMock> = [
+      ['config', { directories: new Map([]) }],
+      ['logger', () => ({})],
+    ];
 
-    const get = jest.fn(createGetMock(calls));
+    const get = jest.fn(createContainerGetCallsMock(calls));
 
     const container = { get } as unknown as Container;
 
@@ -47,15 +54,14 @@ describe('service-factory', () => {
 
     expect(get).toHaveBeenCalledTimes(calls.length);
   });
-
   test('errorMiddlewareServiceFactory', () => {
-    const calls: Array<[string, unknown]> = [
+    const calls: Array<CallMock> = [
       ['responseFactory', () => null],
       ['config', { debug: true }],
       ['logger', () => null],
     ];
 
-    const get = jest.fn(createGetMock(calls));
+    const get = jest.fn(createContainerGetCallsMock(calls));
 
     const container = { get } as unknown as Container;
 
@@ -65,7 +71,7 @@ describe('service-factory', () => {
   });
 
   test('loggerServiceFactory', () => {
-    const calls: Array<[string, unknown]> = [
+    const calls: Array<CallMock> = [
       [
         'config',
         {
@@ -77,7 +83,7 @@ describe('service-factory', () => {
       ],
     ];
 
-    const get = jest.fn(createGetMock(calls));
+    const get = jest.fn(createContainerGetCallsMock(calls));
 
     const container = { get } as unknown as Container;
 
@@ -87,9 +93,9 @@ describe('service-factory', () => {
   });
 
   test('matchServiceFactory', () => {
-    const calls: Array<[string, unknown]> = [['routesByName', new Map()]];
+    const calls: Array<CallMock> = [['routesByName', new Map()]];
 
-    const get = jest.fn(createGetMock(calls));
+    const get = jest.fn(createContainerGetCallsMock(calls));
 
     const container = { get } as unknown as Container;
 
@@ -99,9 +105,9 @@ describe('service-factory', () => {
   });
 
   test('middlewaresServiceFactory', () => {
-    const calls: Array<[string, unknown]> = [];
+    const calls: Array<CallMock> = [];
 
-    const get = jest.fn(createGetMock(calls));
+    const get = jest.fn(createContainerGetCallsMock(calls));
 
     const container = { get } as unknown as Container;
 
@@ -120,9 +126,9 @@ describe('service-factory', () => {
   });
 
   test('pingHandlerServiceFactory', () => {
-    const calls: Array<[string, unknown]> = [['responseFactory', () => null]];
+    const calls: Array<CallMock> = [['responseFactory', () => null]];
 
-    const get = jest.fn(createGetMock(calls));
+    const get = jest.fn(createContainerGetCallsMock(calls));
 
     const container = { get } as unknown as Container;
 
@@ -132,12 +138,12 @@ describe('service-factory', () => {
   });
 
   test('requestFactoryServiceFactory', () => {
-    const calls: Array<[string, unknown]> = [
+    const calls: Array<CallMock> = [
       ['uriFactory', () => null],
       ['streamFactory', () => null],
     ];
 
-    const get = jest.fn(createGetMock(calls));
+    const get = jest.fn(createContainerGetCallsMock(calls));
 
     const container = { get } as unknown as Container;
 
@@ -147,9 +153,9 @@ describe('service-factory', () => {
   });
 
   test('responseFactoryServiceFactory', () => {
-    const calls: Array<[string, unknown]> = [['streamFactory', () => null]];
+    const calls: Array<CallMock> = [['streamFactory', () => null]];
 
-    const get = jest.fn(createGetMock(calls));
+    const get = jest.fn(createContainerGetCallsMock(calls));
 
     const container = { get } as unknown as Container;
 
@@ -159,9 +165,9 @@ describe('service-factory', () => {
   });
 
   test('routeMatcherMiddlewareServiceFactory', () => {
-    const calls: Array<[string, unknown]> = [['match', () => null]];
+    const calls: Array<CallMock> = [['match', () => null]];
 
-    const get = jest.fn(createGetMock(calls));
+    const get = jest.fn(createContainerGetCallsMock(calls));
 
     const container = { get } as unknown as Container;
 
@@ -171,9 +177,9 @@ describe('service-factory', () => {
   });
 
   test('routesServiceFactory', () => {
-    const calls: Array<[string, unknown]> = [];
+    const calls: Array<CallMock> = [];
 
-    const get = jest.fn(createGetMock(calls));
+    const get = jest.fn(createContainerGetCallsMock(calls));
 
     const container = { get } as unknown as Container;
 
@@ -200,9 +206,9 @@ describe('service-factory', () => {
   });
 
   test('routesByNameServiceFactory', () => {
-    const calls: Array<[string, unknown]> = [['routes', []]];
+    const calls: Array<CallMock> = [['routes', []]];
 
-    const get = jest.fn(createGetMock(calls));
+    const get = jest.fn(createContainerGetCallsMock(calls));
 
     const container = { get } as unknown as Container;
 
@@ -212,9 +218,9 @@ describe('service-factory', () => {
   });
 
   test('serverRequestFactoryServiceFactory', () => {
-    const calls: Array<[string, unknown]> = [['requestFactory', () => null]];
+    const calls: Array<CallMock> = [['requestFactory', () => null]];
 
-    const get = jest.fn(createGetMock(calls));
+    const get = jest.fn(createContainerGetCallsMock(calls));
 
     const container = { get } as unknown as Container;
 

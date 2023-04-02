@@ -1,6 +1,6 @@
-import { Handler } from '@chubbyts/chubbyts-http-types/dist/handler';
-import { Response } from '@chubbyts/chubbyts-http-types/dist/message';
-import { ResponseFactory } from '@chubbyts/chubbyts-http-types/dist/message-factory';
+import type { Handler } from '@chubbyts/chubbyts-http-types/dist/handler';
+import type { Response } from '@chubbyts/chubbyts-http-types/dist/message';
+import type { ResponseFactory } from '@chubbyts/chubbyts-http-types/dist/message-factory';
 
 export const createPingHandler = (responseFactory: ResponseFactory): Handler => {
   return async (): Promise<Response> => {

@@ -5,7 +5,9 @@ module.exports = {
   },
   'extends': [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended'
+    'plugin:@typescript-eslint/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
   ],
   'overrides': [
   ],
@@ -15,26 +17,25 @@ module.exports = {
     'sourceType': 'module'
   },
   'plugins': [
-    '@typescript-eslint'
+    '@typescript-eslint',
+    'functional'
   ],
   'rules': {
-    'indent': [
+    '@typescript-eslint/no-unused-vars': [
       'error',
-      2,
-      { 'SwitchCase': 1 },
+      {
+        'argsIgnorePattern': '^_',
+        'destructuredArrayIgnorePattern': '^_',
+        'varsIgnorePattern': '^_',
+      }
     ],
     'linebreak-style': [
       'error',
       'unix'
     ],
-    '@typescript-eslint/no-unused-vars': [
+    'no-constant-condition': [
       'error',
-      {
-        "argsIgnorePattern": "^_",
-        "destructuredArrayIgnorePattern": "^_",
-        "varsIgnorePattern": "^_"
-        ,
-      }
+      { 'checkLoops': false },
     ],
     'quotes': [
       'error',
@@ -44,5 +45,19 @@ module.exports = {
       'error',
       'always'
     ],
+    '@typescript-eslint/consistent-type-imports': 'error',
+    'functional/immutable-data': 'error',
+    'functional/no-let': 'error',
+    'functional/prefer-tacit': 'error',
+    'import/order': 'error',
+    'no-param-reassign': 'error',
+    'no-var': 'error',
+    'prefer-const': 'error',
+  },
+  'settings': {
+    'import/resolver': {
+      typescript: true,
+      node: true,
+    }
   }
 };

@@ -43,7 +43,7 @@ const startServer = async () => {
     }
   }
 
-  throw new Error('Timeout in starting the server');
+  throw new Error(`Timeout in starting the server`);
 };
 
 module.exports = async () => {
