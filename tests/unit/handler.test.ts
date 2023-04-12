@@ -1,30 +1,38 @@
 import type { Duplex } from 'stream';
-import { describe, expect, jest, test } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 import type { ServerRequest, Response } from '@chubbyts/chubbyts-http-types/dist/message';
 import type { ResponseFactory } from '@chubbyts/chubbyts-http-types/dist/message-factory';
+import { useObjectMock } from '@chubbyts/chubbyts-function-mock/dist/object-mock';
+import { useFunctionMock } from '@chubbyts/chubbyts-function-mock/dist/function-mock';
 import { createPingHandler } from '../../src/handler';
 
 describe('handler', () => {
   test('createPingHandler', async () => {
-    const end = jest.fn((givenChunk: string) => {
-      const data = JSON.parse(givenChunk);
-
-      expect(data).toEqual({
-        datetime: expect.any(String),
-      });
-    });
-
-    const body = { end } as unknown as Duplex;
-
     const request = {} as ServerRequest;
-    const response = { body } as Response;
 
-    const responseFactory: ResponseFactory = jest.fn((givenStatus: number, givenReasonPhrase?: string) => {
-      expect(givenStatus).toBe(200);
-      expect(givenReasonPhrase).toBeUndefined();
+    const [responseBody, responseBodyMocks] = useObjectMock<Duplex>([
+      {
+        name: 'end',
+        callback: (givenChunk) => {
+          const data = JSON.parse(givenChunk);
 
-      return response;
-    });
+          expect(data).toEqual({
+            datetime: expect.any(String),
+          });
+
+          return responseBody;
+        },
+      },
+    ]);
+
+    const [response, responseMocks] = useObjectMock<Response>([
+      { name: 'body', value: responseBody },
+      { name: 'headers', value: { 'some-header': ['some-value'] } },
+    ]);
+
+    const [responseFactory, responseFactoryMocks] = useFunctionMock<ResponseFactory>([
+      { parameters: [200], return: response },
+    ]);
 
     const pingHandler = createPingHandler(responseFactory);
 
@@ -35,10 +43,12 @@ describe('handler', () => {
         'cache-control': ['no-cache, no-store, must-revalidate'],
         pragma: ['no-cache'],
         expires: ['0'],
+        'some-header': ['some-value'],
       },
     });
 
-    expect(end).toHaveBeenCalledTimes(1);
-    expect(responseFactory).toHaveBeenCalledTimes(1);
+    expect(responseBodyMocks.length).toBe(0);
+    expect(responseMocks.length).toBe(0);
+    expect(responseFactoryMocks.length).toBe(0);
   });
 });
