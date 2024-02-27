@@ -11,38 +11,19 @@
   "license": "MIT",
   "repository": "chubbyts/chubbyts-framework-skeleton",
   "scripts": {
-    "build-watch": "node build-cli.js -w",
-    "build": "node build-cli.js",
-    "command": "npm run build && node dist/bin/console.js",
+    "build": "rm -Rf dist && tsc",
+    "command": "ts-node bin/console.ts",
     "cs-fix": "prettier --write bin bootstrap config src tests *.js",
     "cs": "prettier --check bin bootstrap config src tests *.js",
+    "develop:debug": "CHUBBYTS_NODE_OPTIONS='--inspect=0.0.0.0:8888' nodemon",
+    "develop": "nodemon",
     "infection": "stryker run",
-    "debug": "concurrently \"npm run build-watch\" \"sleep 0.1 && npm run watch-server-debug\"",
-    "develop": "concurrently \"npm run build-watch\" \"sleep 0.1 && npm run watch-server\"",
     "lint-fix": "eslint bin bootstrap config src tests --fix",
     "lint": "eslint bin bootstrap config src tests",
-    "start": "npm install && npm run lint-fix && npm run cs-fix && npm run develop",
+    "start:debug": "pnpm install && pnpm run lint-fix && pnpm run cs-fix && pnpm run develop:debug",
+    "start": "pnpm install && pnpm run lint-fix && pnpm run cs-fix && pnpm run develop",
     "test:integration": "jest --config jest.integration.config.js",
-    "test": "jest",
-    "watch-server-debug": "nodemon --inspect=0.0.0.0:1235",
-    "watch-server": "nodemon"
-  },
-  "jest": {
-    "transform": {
-      "\\.ts$": "@swc/jest"
-    },
-    "testEnvironment": "node",
-    "testMatch": [
-      "<rootDir>/tests/unit/**/*.test.ts"
-    ],
-    "collectCoverageFrom": [
-      "<rootDir>/src/**/*.ts"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "lines": 100
-      }
-    }
+    "test": "jest"
   },
   "prettier": {
     "printWidth": 120,
@@ -60,31 +41,34 @@
     "@chubbyts/chubbyts-dic": "^1.2.0",
     "@chubbyts/chubbyts-dic-config": "^1.2.0",
     "@chubbyts/chubbyts-dic-types": "^1.2.1",
-    "@chubbyts/chubbyts-framework": "^1.9.0",
-    "@chubbyts/chubbyts-framework-router-path-to-regexp": "^1.4.0",
+    "@chubbyts/chubbyts-framework": "^1.9.3",
+    "@chubbyts/chubbyts-framework-router-path-to-regexp": "^1.4.1",
     "@chubbyts/chubbyts-http": "^1.2.1",
+    "@chubbyts/chubbyts-http-node-bridge": "^1.2.0",
     "@chubbyts/chubbyts-http-types": "^1.2.3",
     "@chubbyts/chubbyts-log-types": "^1.3.2",
-    "@chubbyts/chubbyts-node-http-bridge": "^1.2.0",
     "@chubbyts/chubbyts-pino-adapter": "^1.3.1",
-    "commander": "^11.0.0",
-    "pino": "^8.14.2"
+    "commander": "^12.0.0",
+    "pino": "^8.19.0"
   },
   "devDependencies": {
     "@chubbyts/chubbyts-eslint": "^2.0.3",
     "@chubbyts/chubbyts-function-mock": "^1.4.1",
-    "@stryker-mutator/core": "^7.1.1",
-    "@stryker-mutator/jest-runner": "^7.1.1",
-    "@swc/cli": "^0.1.62",
-    "@swc/core": "^1.3.71",
-    "@swc/jest": "^0.2.27",
-    "@types/jest": "^29.5.3",
-    "@types/node": "^20.4.5",
-    "concurrently": "^8.2.0",
+    "@jest/globals": "^29.7.0",
+    "@stryker-mutator/core": "^8.2.6",
+    "@stryker-mutator/jest-runner": "^8.2.6",
+    "@stryker-mutator/typescript-checker": "^8.2.6",
+    "@swc/cli": "^0.3.9",
+    "@swc/core": "^1.4.2",
+    "@swc/jest": "^0.2.36",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.10",
     "cross-fetch": "^4.0.0",
-    "jest": "^29.6.2",
-    "nodemon": "^3.0.1",
-    "prettier": "^3.0.0",
-    "typescript": "^5.1.6"
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0",
+    "prettier": "^3.2.5",
+    "prettier-2": "npm:prettier@^2.8.8",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }

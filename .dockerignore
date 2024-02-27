@@ -1,6 +1,7 @@
-/.stryker-tmp
 /.git
 /.github
+/.pnpm-store
+/.stryker-tmp
 /coverage
 /dist
 /node_modules

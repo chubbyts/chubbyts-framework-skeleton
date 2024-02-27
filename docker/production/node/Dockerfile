@@ -1,5 +1,5 @@
 # base
-FROM rockylinux:9.1 AS base
+FROM rockylinux/rockylinux:9.3 AS base
 
 SHELL ["/bin/bash", "-c"]
 
@@ -36,10 +36,11 @@ WORKDIR /home/node
 
 RUN curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "$HOME/.fnm" --skip-shell \
     && source ~/.bashrc \
-    && fnm install 18 \
-    && fnm default 18 \
-    && fnm use 18 \
-    && npm install -g npm@latest
+    && fnm install 20 \
+    && fnm default 20 \
+    && fnm use 20 \
+    && npm uninstall -g npm \
+    && corepack enable pnpm
 
 # build
 FROM base as build
@@ -54,14 +55,12 @@ USER node
 
 WORKDIR /app-build
 
-RUN source ~/.bashrc \
-    && npm install \
-    && npm run cs \
-    && npm run lint \
-    && npm run test --no-cache \
-    && npm run test:integration --no-cache \
-    && npm run infection \
-    && npm run build
+RUN source ~/.bashrc && pnpm install
+RUN source ~/.bashrc && pnpm run cs
+RUN source ~/.bashrc && pnpm run lint
+RUN source ~/.bashrc && pnpm run test --coverage --no-cache
+RUN source ~/.bashrc && pnpm run test:integration --no-cache
+RUN source ~/.bashrc && pnpm run build
 
 # prod
 FROM base
@@ -70,7 +69,7 @@ USER root
 
 COPY --from=build /app-build/dist /app
 COPY --from=build /app-build/package.json /app
-COPY --from=build /app-build/package-lock.json /app
+COPY --from=build /app-build/pnpm-lock.yaml /app
 
 RUN chown -Rf node: /app
 
@@ -79,7 +78,7 @@ USER node
 WORKDIR /app
 
 RUN source ~/.bashrc \
-    && npm install --omit=dev
+    && pnpm install --prod
 
 CMD source ~/.bashrc \
     && export LD_PRELOAD=`jemalloc-config --libdir`/libjemalloc.so.`jemalloc-config --revision` \

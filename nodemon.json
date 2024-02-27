@@ -1,4 +1,4 @@
 {
-    "watch": "dist",
-    "exec": "node dist/bootstrap/index.js"
+    "ext": "json,ts,tsx",
+    "exec": "node ${CHUBBYTS_NODE_OPTIONS} -r ts-node/register bootstrap/index.ts"
 }

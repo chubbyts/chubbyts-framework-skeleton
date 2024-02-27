@@ -1,12 +1,14 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable functional/immutable-data */
+/* eslint-disable functional/no-let */
+/* eslint-disable no-undef */
 const { spawn } = require('child_process');
 const fetch = require('cross-fetch');
 
-const build = require('./build');
-
 const getRandomInt = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  const ceiledMin = Math.ceil(min);
+  const flooredMax = Math.floor(max);
+  return Math.floor(Math.random() * (flooredMax - ceiledMin + 1)) + ceiledMin;
 };
 
 const testServerHost = '127.0.0.1';
@@ -16,9 +18,9 @@ const timeout = 20000;
 const iterationTimeout = 500;
 
 const startServer = async () => {
-  await build();
+  console.log(process.argv[0]);
 
-  const child = spawn(process.argv[0], ['dist/bootstrap/index.js'], {
+  const child = spawn(process.argv[0], ['-r', 'ts-node/register', 'bootstrap/index.ts'], {
     env: {
       NODE_ENV: 'jest',
       SERVER_HOST: testServerHost,
@@ -43,19 +45,19 @@ const startServer = async () => {
     }
   }
 
-  throw new Error(`Timeout in starting the server`);
+  throw new Error('Timeout in starting the server');
 };
 
 module.exports = async () => {
-  if (!process.env.INTEGRATION_ENDPOINT) {
-    process.env.INTEGRATION_ENDPOINT = `http://${testServerHost}:${testServerPort}`;
+  if (!global.__HTTP_SERVER__) {
     global.__HTTP_SERVER__ = await startServer();
+    process.env.HTTP_URI = `http://${testServerHost}:${testServerPort}`;
   }
 
   console.log(
     JSON.stringify(
       {
-        INTEGRATION_ENDPOINT: process.env.INTEGRATION_ENDPOINT,
+        HTTP_URI: process.env.HTTP_URI,
       },
       null,
       2,
