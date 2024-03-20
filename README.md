@@ -26,15 +26,15 @@ A minimal skeleton for [chubbyts-framework][5].
  * [@chubbyts/chubbyts-dic][2]: ^1.2.0
  * [@chubbyts/chubbyts-dic-config][3]: ^1.2.0
  * [@chubbyts/chubbyts-dic-types][4]: ^1.2.1
- * [@chubbyts/chubbyts-framework][5]: ^1.9.0
- * [@chubbyts/chubbyts-framework-router-path-to-regexp][6]: ^1.4.0
+ * [@chubbyts/chubbyts-framework][5]: ^1.9.4
+ * [@chubbyts/chubbyts-framework-router-path-to-regexp][6]: ^1.4.1
  * [@chubbyts/chubbyts-http][7]: ^1.2.1
  * [@chubbyts/chubbyts-http-node-bridge][8]: ^1.2.0
  * [@chubbyts/chubbyts-http-types][9]: ^1.2.3
  * [@chubbyts/chubbyts-log-types][10]: ^1.3.2
  * [@chubbyts/chubbyts-pino-adapter][11]: ^1.3.1
- * [commander][12]: ^11.0.0
- * [pino][13]: ^8.14.2
+ * [commander][12]: ^12.0.0
+ * [pino][13]: ^8.19.0
 
 ## Environment
 
