@@ -1,9 +1,10 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable functional/immutable-data */
 /* eslint-disable functional/no-let */
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
-const { spawn } = require('child_process');
-const fetch = require('cross-fetch');
+
+import type { ChildProcessWithoutNullStreams } from 'child_process';
+import { spawn } from 'child_process';
+import fetch from 'cross-fetch';
 
 const getRandomInt = (min, max) => {
   const ceiledMin = Math.ceil(min);
@@ -20,11 +21,12 @@ const iterationTimeout = 500;
 const startServer = async () => {
   console.log(process.argv[0]);
 
-  const child = spawn(process.argv[0], ['-r', 'ts-node/register', 'bootstrap/index.ts'], {
+  const child = spawn(process.argv[0], ['--loader', 'ts-node/esm', 'bootstrap/index.ts'], {
     env: {
-      NODE_ENV: 'jest',
+      NODE_ENV: 'test',
+      MONGO_URI: process.env.MONGO_URI,
       SERVER_HOST: testServerHost,
-      SERVER_PORT: testServerPort,
+      SERVER_PORT: `${testServerPort}`,
     },
     detached: true,
   }).once('error', (e) => {
@@ -48,19 +50,16 @@ const startServer = async () => {
   throw new Error('Timeout in starting the server');
 };
 
-module.exports = async () => {
-  if (!global.__HTTP_SERVER__) {
-    global.__HTTP_SERVER__ = await startServer();
-    process.env.HTTP_URI = `http://${testServerHost}:${testServerPort}`;
-  }
+// eslint-disable-next-line functional/no-let
+let httpServer: ChildProcessWithoutNullStreams;
 
-  console.log(
-    JSON.stringify(
-      {
-        HTTP_URI: process.env.HTTP_URI,
-      },
-      null,
-      2,
-    ),
-  );
+export const setup = async () => {
+  httpServer = await startServer();
+
+  // eslint-disable-next-line functional/immutable-data
+  process.env.HTTP_URI = `http://${testServerHost}:${testServerPort}`;
+};
+
+export const teardown = async () => {
+  httpServer.kill();
 };

@@ -1,5 +1,5 @@
 import type { Container } from '@chubbyts/chubbyts-dic-types/dist/container';
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect, test } from 'vitest';
 import { useObjectMock } from '@chubbyts/chubbyts-function-mock/dist/object-mock';
 import { useFunctionMock } from '@chubbyts/chubbyts-function-mock/dist/function-mock';
 import type { ServerRequest } from '@chubbyts/chubbyts-http-types/dist/message';
@@ -20,7 +20,7 @@ import {
   streamFactoryServiceFactory,
   streamFromResourceFactoryServiceFactory,
   uriFactoryServiceFactory,
-} from '../../src/service-factory';
+} from '../../src/service-factory.js';
 
 describe('service-factory', () => {
   test('cleanDirectoriesCommandServiceFactory', () => {

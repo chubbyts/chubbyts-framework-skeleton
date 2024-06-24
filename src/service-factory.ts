@@ -8,7 +8,6 @@ import type {
   ResponseFactory,
   ServerRequestFactory,
   StreamFactory,
-  StreamFromResourceFactory,
   UriFactory,
 } from '@chubbyts/chubbyts-http-types/dist/message-factory';
 import type { Logger } from '@chubbyts/chubbyts-log-types/dist/log';
@@ -30,10 +29,10 @@ import { createRoutesByName } from '@chubbyts/chubbyts-framework/dist/router/rou
 import { createLazyHandler } from '@chubbyts/chubbyts-framework/dist/handler/lazy-handler';
 import type { Route } from '@chubbyts/chubbyts-framework/dist/router/route';
 import { createGetRoute } from '@chubbyts/chubbyts-framework/dist/router/route';
-import type { Config } from '../config/production';
-import { createPingHandler } from './handler';
-import type { CleanDirectoriesCommand } from './command';
-import { createCleanDirectoriesCommand } from './command';
+import type { Config } from '../config/production.js';
+import { createPingHandler } from './handler.js';
+import type { CleanDirectoriesCommand } from './command.js';
+import { createCleanDirectoriesCommand } from './command.js';
 
 export const cleanDirectoriesCommandServiceFactory = (container: Container): CleanDirectoriesCommand => {
   return createCleanDirectoriesCommand(container.get<Config>('config').directories, container.get<Logger>('logger'));
@@ -99,14 +98,8 @@ export const serverRequestFactoryServiceFactory = (container: Container): Server
   return createServerRequestFactory(container.get<RequestFactory>('requestFactory'));
 };
 
-export const streamFactoryServiceFactory = (): StreamFactory => {
-  return createStreamFactory();
-};
+export const streamFactoryServiceFactory = createStreamFactory;
 
-export const streamFromResourceFactoryServiceFactory = (): StreamFromResourceFactory => {
-  return createStreamFromResourceFactory();
-};
+export const streamFromResourceFactoryServiceFactory = createStreamFromResourceFactory;
 
-export const uriFactoryServiceFactory = (): UriFactory => {
-  return createUriFactory();
-};
+export const uriFactoryServiceFactory = createUriFactory;

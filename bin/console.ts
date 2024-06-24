@@ -1,11 +1,8 @@
-import { createServer } from 'http';
 import { Command } from 'commander';
-import { containerFactory } from '../bootstrap/container';
-import type { CleanDirectoriesCommand } from '../src/command';
+import { containerFactory } from '../bootstrap/container.js';
+import type { CleanDirectoriesCommand } from '../src/command.js';
 
 const program = new Command();
-
-const container = containerFactory(process.env.NODE_ENV as string);
 
 type Action = (...args: Array<string>) => Promise<number> | number;
 
@@ -20,31 +17,26 @@ const runAction = async (action: Action, args: Array<string>): Promise<number> =
 
 const run = (action: Action) => {
   return async (...args: Array<string>): Promise<void> => {
-    const server = createServer((_, res) => {
-      res.writeHead(200);
-      res.end();
-    });
-
-    server.listen(9999);
-
+    console.log(`command start: ${new Date().toJSON()}`);
     const exitCode = await runAction(action, args);
-
-    setTimeout(() => {
-      server.close();
-      process.exit(exitCode);
-    }, 1000);
+    console.log(`command end: ${new Date().toJSON()}, exitCode: ${exitCode}`);
+    process.exit(exitCode);
   };
 };
 
 (async () => {
+  const container = await containerFactory(process.env.NODE_ENV as string);
+
   program
     .command('clean-directories')
     .argument('[directoryNames]')
     .description('Delete everything within a given directory.')
     .action(
-      run((directoryNamesAsString: string): number => {
+      run((directoryNamesAsString?: string): number => {
         const command = container.get<CleanDirectoriesCommand>('cleanDirectoriesCommand');
-        return command(directoryNamesAsString.split(',').map((directoryName) => directoryName.trim()));
+        return command(
+          directoryNamesAsString ? directoryNamesAsString.split(',').map((directoryName) => directoryName.trim()) : [],
+        );
       }),
     );
 

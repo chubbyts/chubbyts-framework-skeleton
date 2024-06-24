@@ -17,7 +17,7 @@ import {
   streamFactoryServiceFactory,
   streamFromResourceFactoryServiceFactory,
   uriFactoryServiceFactory,
-} from '../src/service-factory';
+} from '../src/service-factory.js';
 
 export type Config = {
   debug: boolean;
@@ -35,7 +35,7 @@ export type Config = {
   };
 };
 
-const rootDir = realpathSync(__dirname + '/..');
+const rootDir = realpathSync(new URL('..', import.meta.url));
 
 export const configFactory = (env: string): Config => {
   console.log(`Loading "${env}" config`);

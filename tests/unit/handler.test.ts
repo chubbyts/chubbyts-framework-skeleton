@@ -1,10 +1,10 @@
 import type { Duplex } from 'stream';
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect, test } from 'vitest';
 import type { ServerRequest, Response } from '@chubbyts/chubbyts-http-types/dist/message';
 import type { ResponseFactory } from '@chubbyts/chubbyts-http-types/dist/message-factory';
 import { useObjectMock } from '@chubbyts/chubbyts-function-mock/dist/object-mock';
 import { useFunctionMock } from '@chubbyts/chubbyts-function-mock/dist/function-mock';
-import { createPingHandler } from '../../src/handler';
+import { createPingHandler } from '../../src/handler.js';
 
 describe('handler', () => {
   test('createPingHandler', async () => {
