@@ -1,6 +1,4 @@
 /* eslint-disable functional/no-let */
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable no-undef */
 
 import type { ChildProcessWithoutNullStreams } from 'child_process';
 import { spawn } from 'child_process';
@@ -19,12 +17,10 @@ const timeout = 20000;
 const iterationTimeout = 500;
 
 const startServer = async () => {
-  console.log(process.argv[0]);
-
-  const child = spawn(process.argv[0], ['--loader', 'ts-node/esm', 'bootstrap/index.ts'], {
+  const child = spawn('./node_modules/.bin/tsx', ['bootstrap/index.ts'], {
     env: {
+      ...process.env,
       NODE_ENV: 'test',
-      MONGO_URI: process.env.MONGO_URI,
       SERVER_HOST: testServerHost,
       SERVER_PORT: `${testServerPort}`,
     },
@@ -50,7 +46,6 @@ const startServer = async () => {
   throw new Error('Timeout in starting the server');
 };
 
-// eslint-disable-next-line functional/no-let
 let httpServer: ChildProcessWithoutNullStreams;
 
 export const setup = async () => {

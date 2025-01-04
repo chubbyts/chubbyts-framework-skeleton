@@ -22,19 +22,19 @@ A minimal skeleton for [chubbyts-framework][5].
 
 ## Requirements
 
- * node: 16
- * [@chubbyts/chubbyts-dic][2]: ^1.2.0
- * [@chubbyts/chubbyts-dic-config][3]: ^1.2.0
- * [@chubbyts/chubbyts-dic-types][4]: ^1.2.1
- * [@chubbyts/chubbyts-framework][5]: ^1.9.4
- * [@chubbyts/chubbyts-framework-router-path-to-regexp][6]: ^1.4.1
- * [@chubbyts/chubbyts-http][7]: ^1.2.1
- * [@chubbyts/chubbyts-http-node-bridge][8]: ^1.2.0
- * [@chubbyts/chubbyts-http-types][9]: ^1.2.3
- * [@chubbyts/chubbyts-log-types][10]: ^1.3.2
- * [@chubbyts/chubbyts-pino-adapter][11]: ^1.3.2
- * [commander][12]: ^12.1.0
- * [pino][13]: ^9.2.0
+ * node: 18
+ * [@chubbyts/chubbyts-dic][2]: ^1.3.1
+ * [@chubbyts/chubbyts-dic-config][3]: ^1.3.1
+ * [@chubbyts/chubbyts-dic-types][4]: ^1.3.1
+ * [@chubbyts/chubbyts-framework][5]: ^1.10.1
+ * [@chubbyts/chubbyts-framework-router-path-to-regexp][6]: ^1.5.1
+ * [@chubbyts/chubbyts-http][7]: ^1.3.1
+ * [@chubbyts/chubbyts-http-node-bridge][8]: ^1.3.1
+ * [@chubbyts/chubbyts-http-types][9]: ^1.3.1
+ * [@chubbyts/chubbyts-log-types][10]: ^1.4.3
+ * [@chubbyts/chubbyts-pino-adapter][11]: ^1.4.1
+ * [commander][12]: ^13.0.0
+ * [pino][13]: ^9.6.0
 
 ## Environment
 
@@ -84,7 +84,7 @@ Service factories are the glue code of the dependeny injection container.
 
 ## Copyright
 
-2024 Dominik Zogg
+2025 Dominik Zogg
 
 [1]: https://www.npmjs.com/package/@chubbyts/chubbyts-framework-skeleton
 [2]: https://www.npmjs.com/package/@chubbyts/chubbyts-dic
