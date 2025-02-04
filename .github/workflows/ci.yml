@@ -53,6 +53,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+      - run: npm install -g corepack@latest \
       - run: corepack enable pnpm
       - run: pnpm install
       - run: pnpm run test --run --no-cache
@@ -67,6 +68,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - run: npm install -g corepack@latest \
       - run: corepack enable pnpm
       - run: pnpm install
       - run: pnpm run test --run --no-cache
@@ -81,6 +83,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - run: npm install -g corepack@latest \
       - run: corepack enable pnpm
       - run: pnpm install
       - run: pnpm run cs
