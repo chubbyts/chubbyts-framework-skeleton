@@ -23,19 +23,19 @@ A minimal skeleton for [chubbyts-framework][5].
 ## Requirements
 
  * node: 18
- * [@chubbyts/chubbyts-dic][2]: ^1.3.1
- * [@chubbyts/chubbyts-dic-config][3]: ^1.3.1
- * [@chubbyts/chubbyts-dic-types][4]: ^1.3.1
- * [@chubbyts/chubbyts-framework][5]: ^1.12.0
- * [@chubbyts/chubbyts-framework-router-path-to-regexp][6]: ^1.6.0
- * [@chubbyts/chubbyts-http][7]: ^1.4.0
- * [@chubbyts/chubbyts-http-error][8]: ^2.4.2
- * [@chubbyts/chubbyts-http-node-bridge][9]: ^1.4.0
- * [@chubbyts/chubbyts-http-types][10]: ^2.0.0
- * [@chubbyts/chubbyts-log-types][11]: ^2.0.1
- * [@chubbyts/chubbyts-pino-adapter][12]: ^2.0.0
- * [commander][13]: ^13.1.0
- * [pino][14]: ^9.6.0
+ * [@chubbyts/chubbyts-dic][2]: ^2.0.1
+ * [@chubbyts/chubbyts-dic-config][3]: ^2.0.1
+ * [@chubbyts/chubbyts-dic-types][4]: ^2.0.1
+ * [@chubbyts/chubbyts-framework][5]: ^2.0.1
+ * [@chubbyts/chubbyts-framework-router-path-to-regexp][6]: ^2.0.1
+ * [@chubbyts/chubbyts-http][7]: ^2.0.1
+ * [@chubbyts/chubbyts-http-error][8]: ^3.0.1
+ * [@chubbyts/chubbyts-http-node-bridge][9]: ^2.0.1
+ * [@chubbyts/chubbyts-http-types][10]: ^3.0.1
+ * [@chubbyts/chubbyts-log-types][11]: ^3.0.1
+ * [@chubbyts/chubbyts-pino-adapter][12]: ^3.0.1
+ * [commander][13]: ^14.0.0
+ * [pino][14]: ^9.7.0
 
 ## Environment
 

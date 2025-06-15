@@ -1,7 +1,7 @@
 services:
   node:
-    container_name: chubbyts-framework-skeleton-node
-    hostname: chubbyts-framework-skeleton-node
+    container_name: chubbyts-framework-skeleton-node-ci
+    hostname: chubbyts-framework-skeleton-node-ci
     build:
       dockerfile: ./docker/production/node/Dockerfile
       context: ./
@@ -10,8 +10,8 @@ services:
       SERVER_HOST: '0.0.0.0'
       SERVER_PORT: '1234'
   nginx:
-    container_name: chubbyts-framework-skeleton-nginx
-    hostname: chubbyts-framework-skeleton-nginx
+    container_name: chubbyts-framework-skeleton-nginx-ci
+    hostname: chubbyts-framework-skeleton-nginx-ci
     image: nginx
     environment:
       SERVER_PORT: '443'
