@@ -1,4 +1,4 @@
-FROM rockylinux/rockylinux:9.5
+FROM rockylinux/rockylinux:10.0
 
 SHELL ["/bin/bash", "-c"]
 
@@ -9,12 +9,11 @@ RUN dnf install -y 'dnf-command(config-manager)' \
     && dnf install -y epel-release
 
 RUN dnf install -y \
-    compat-openssl11 \
     git \
     glibc-langpack-de \
     langpacks-de \
-    jemalloc \
-    jemalloc-devel \
+    mimalloc \
+    mimalloc-devel \
     nmap-ncat \
     procps-ng \
     sudo \
@@ -39,6 +38,8 @@ RUN groupadd -g ${GROUP_ID} node \
 
 USER node
 
+ENV LD_PRELOAD=/usr/lib64/libmimalloc.so
+
 WORKDIR /home/node
 
 RUN curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "$HOME/.fnm" --skip-shell \
@@ -52,5 +53,4 @@ RUN curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "$HOME/
 
 WORKDIR /app
 
-CMD export LD_PRELOAD=`jemalloc-config --libdir`/libjemalloc.so.`jemalloc-config --revision` \
-    && trap "exit $?" TERM; while :; do sleep 1; done
+CMD trap "exit $?" TERM; while :; do sleep 1; done
