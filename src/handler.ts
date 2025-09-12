@@ -1,21 +1,18 @@
-import type { Handler } from '@chubbyts/chubbyts-http-types/dist/handler';
-import type { Response } from '@chubbyts/chubbyts-http-types/dist/message';
-import type { ResponseFactory } from '@chubbyts/chubbyts-http-types/dist/message-factory';
+import { STATUS_CODES } from 'node:http';
+import type { Handler } from '@chubbyts/chubbyts-undici-server/dist/server';
+import { Response } from '@chubbyts/chubbyts-undici-server/dist/server';
 
-export const createPingHandler = (responseFactory: ResponseFactory): Handler => {
+export const createPingHandler = (): Handler => {
   return async (): Promise<Response> => {
-    const response = responseFactory(200);
-    response.body.end(JSON.stringify({ datetime: new Date().toISOString() }));
-
-    return {
-      ...response,
+    return new Response(JSON.stringify({ datetime: new Date().toISOString() }), {
+      status: 200,
+      statusText: STATUS_CODES[200],
       headers: {
-        ...response.headers,
-        'content-type': ['application/json'],
-        'cache-control': ['no-cache, no-store, must-revalidate'],
-        pragma: ['no-cache'],
-        expires: ['0'],
+        'content-type': 'application/json',
+        'cache-control': 'no-cache, no-store, must-revalidate',
+        pragma: 'no-cache',
+        expires: '0',
       },
-    };
+    });
   };
 };

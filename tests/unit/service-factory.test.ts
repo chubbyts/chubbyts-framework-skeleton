@@ -2,8 +2,8 @@ import type { Container } from '@chubbyts/chubbyts-dic-types/dist/container';
 import { describe, expect, test } from 'vitest';
 import { useObjectMock } from '@chubbyts/chubbyts-function-mock/dist/object-mock';
 import { useFunctionMock } from '@chubbyts/chubbyts-function-mock/dist/function-mock';
-import type { ServerRequest } from '@chubbyts/chubbyts-http-types/dist/message';
-import type { Handler } from '@chubbyts/chubbyts-http-types/dist/handler';
+import type { Handler } from '@chubbyts/chubbyts-undici-server/dist/server';
+import { Response, ServerRequest } from '@chubbyts/chubbyts-undici-server/dist/server';
 import {
   cleanDirectoriesCommandServiceFactory,
   errorMiddlewareServiceFactory,
@@ -11,15 +11,9 @@ import {
   matchServiceFactory,
   middlewaresServiceFactory,
   pingHandlerServiceFactory,
-  requestFactoryServiceFactory,
-  responseFactoryServiceFactory,
   routeMatcherMiddlewareServiceFactory,
   routesByNameServiceFactory,
   routesServiceFactory,
-  serverRequestFactoryServiceFactory,
-  streamFactoryServiceFactory,
-  streamFromResourceFactoryServiceFactory,
-  uriFactoryServiceFactory,
 } from '../../src/service-factory.js';
 
 describe('service-factory', () => {
@@ -44,11 +38,6 @@ describe('service-factory', () => {
 
   test('errorMiddlewareServiceFactory', () => {
     const [container, containerMocks] = useObjectMock<Container>([
-      {
-        name: 'get',
-        parameters: ['responseFactory'],
-        return: () => null,
-      },
       {
         name: 'get',
         parameters: ['config'],
@@ -138,50 +127,7 @@ describe('service-factory', () => {
   });
 
   test('pingHandlerServiceFactory', () => {
-    const [container, containerMocks] = useObjectMock<Container>([
-      {
-        name: 'get',
-        parameters: ['responseFactory'],
-        return: () => null,
-      },
-    ]);
-
-    expect(pingHandlerServiceFactory(container)).toBeInstanceOf(Function);
-
-    expect(containerMocks.length).toBe(0);
-  });
-
-  test('requestFactoryServiceFactory', () => {
-    const [container, containerMocks] = useObjectMock<Container>([
-      {
-        name: 'get',
-        parameters: ['uriFactory'],
-        return: () => null,
-      },
-      {
-        name: 'get',
-        parameters: ['streamFactory'],
-        return: () => null,
-      },
-    ]);
-
-    expect(requestFactoryServiceFactory(container)).toBeInstanceOf(Function);
-
-    expect(containerMocks.length).toBe(0);
-  });
-
-  test('responseFactoryServiceFactory', () => {
-    const [container, containerMocks] = useObjectMock<Container>([
-      {
-        name: 'get',
-        parameters: ['streamFactory'],
-        return: () => null,
-      },
-    ]);
-
-    expect(responseFactoryServiceFactory(container)).toBeInstanceOf(Function);
-
-    expect(containerMocks.length).toBe(0);
+    expect(pingHandlerServiceFactory()).toBeInstanceOf(Function);
   });
 
   test('routeMatcherMiddlewareServiceFactory', () => {
@@ -199,8 +145,8 @@ describe('service-factory', () => {
   });
 
   test('routesServiceFactory', async () => {
-    const request = {} as ServerRequest;
-    const response = {} as Response;
+    const serverRequest = new ServerRequest('https://example.com/');
+    const response = new Response();
 
     const [container, containerMocks] = useObjectMock<Container>([
       {
@@ -229,7 +175,7 @@ describe('service-factory', () => {
       ]
     `);
 
-    expect(await Promise.all(routes.map((route) => route.handler(request)))).toEqual(routes.map(() => response));
+    expect(await Promise.all(routes.map((route) => route.handler(serverRequest)))).toEqual(routes.map(() => response));
 
     expect(containerMocks.length).toBe(0);
   });
@@ -246,31 +192,5 @@ describe('service-factory', () => {
     expect(routesByNameServiceFactory(container)).toBeInstanceOf(Map);
 
     expect(containerMocks.length).toBe(0);
-  });
-
-  test('serverRequestFactoryServiceFactory', () => {
-    const [container, containerMocks] = useObjectMock<Container>([
-      {
-        name: 'get',
-        parameters: ['requestFactory'],
-        return: () => null,
-      },
-    ]);
-
-    expect(serverRequestFactoryServiceFactory(container)).toBeInstanceOf(Function);
-
-    expect(containerMocks.length).toBe(0);
-  });
-
-  test('streamFactoryServiceFactory', () => {
-    expect(streamFactoryServiceFactory()).toBeInstanceOf(Function);
-  });
-
-  test('streamFromResourceFactoryServiceFactory', () => {
-    expect(streamFromResourceFactoryServiceFactory()).toBeInstanceOf(Function);
-  });
-
-  test('uriFactoryServiceFactory', () => {
-    expect(uriFactoryServiceFactory()).toBeInstanceOf(Function);
   });
 });

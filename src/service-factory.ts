@@ -1,26 +1,10 @@
 import type { Container } from '@chubbyts/chubbyts-dic-types/dist/container';
-import type { Middleware } from '@chubbyts/chubbyts-http-types/dist/middleware';
 import { createLazyMiddleware } from '@chubbyts/chubbyts-framework/dist/middleware/lazy-middleware';
 import { createErrorMiddleware } from '@chubbyts/chubbyts-framework/dist/middleware/error-middleware';
 import { createRouteMatcherMiddleware } from '@chubbyts/chubbyts-framework/dist/middleware/route-matcher-middleware';
-import type {
-  RequestFactory,
-  ResponseFactory,
-  ServerRequestFactory,
-  StreamFactory,
-  UriFactory,
-} from '@chubbyts/chubbyts-http-types/dist/message-factory';
 import type { Logger } from '@chubbyts/chubbyts-log-types/dist/log';
 import { createLogger } from '@chubbyts/chubbyts-log-types/dist/log';
 import type { Match } from '@chubbyts/chubbyts-framework/dist/router/route-matcher';
-import {
-  createRequestFactory,
-  createResponseFactory,
-  createServerRequestFactory,
-  createStreamFactory,
-  createStreamFromResourceFactory,
-  createUriFactory,
-} from '@chubbyts/chubbyts-http/dist/message-factory';
 import { createPinoAdapter } from '@chubbyts/chubbyts-pino-adapter/dist/pino-adapter';
 import { createPathToRegexpRouteMatcher } from '@chubbyts/chubbyts-framework-router-path-to-regexp/dist/path-to-regexp-router';
 import { pino } from 'pino';
@@ -29,6 +13,7 @@ import { createRoutesByName } from '@chubbyts/chubbyts-framework/dist/router/rou
 import { createLazyHandler } from '@chubbyts/chubbyts-framework/dist/handler/lazy-handler';
 import type { Route } from '@chubbyts/chubbyts-framework/dist/router/route';
 import { createGetRoute } from '@chubbyts/chubbyts-framework/dist/router/route';
+import type { Middleware } from '@chubbyts/chubbyts-undici-server/dist/server';
 import type { Config } from '../config/production.js';
 import { createPingHandler } from './handler.js';
 import type { CleanDirectoriesCommand } from './command.js';
@@ -39,11 +24,7 @@ export const cleanDirectoriesCommandServiceFactory = (container: Container): Cle
 };
 
 export const errorMiddlewareServiceFactory = (container: Container): Middleware => {
-  return createErrorMiddleware(
-    container.get<ResponseFactory>('responseFactory'),
-    container.get<Config>('config').debug,
-    container.get<Logger>('logger'),
-  );
+  return createErrorMiddleware(container.get<Config>('config').debug, container.get<Logger>('logger'));
 };
 
 export const loggerServiceFactory = (container: Container): Logger => {
@@ -62,17 +43,7 @@ export const middlewaresServiceFactory = (container: Container): Array<Middlewar
   return [m('errorMiddleware'), m('routeMatcherMiddleware')];
 };
 
-export const pingHandlerServiceFactory = (container: Container) => {
-  return createPingHandler(container.get<ResponseFactory>('responseFactory'));
-};
-
-export const requestFactoryServiceFactory = (container: Container): RequestFactory => {
-  return createRequestFactory(container.get<UriFactory>('uriFactory'), container.get<StreamFactory>('streamFactory'));
-};
-
-export const responseFactoryServiceFactory = (container: Container): ResponseFactory => {
-  return createResponseFactory(container.get<StreamFactory>('streamFactory'));
-};
+export const pingHandlerServiceFactory = createPingHandler;
 
 export const routeMatcherMiddlewareServiceFactory = (container: Container): Middleware => {
   return createRouteMatcherMiddleware(container.get<Match>('match'));
@@ -93,13 +64,3 @@ export const routesServiceFactory = (container: Container): Array<Route> => {
 export const routesByNameServiceFactory = (container: Container): RoutesByName => {
   return createRoutesByName(container.get<Array<Route>>('routes'));
 };
-
-export const serverRequestFactoryServiceFactory = (container: Container): ServerRequestFactory => {
-  return createServerRequestFactory(container.get<RequestFactory>('requestFactory'));
-};
-
-export const streamFactoryServiceFactory = createStreamFactory;
-
-export const streamFromResourceFactoryServiceFactory = createStreamFromResourceFactory;
-
-export const uriFactoryServiceFactory = createUriFactory;

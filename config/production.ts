@@ -8,15 +8,9 @@ import {
   matchServiceFactory,
   middlewaresServiceFactory,
   pingHandlerServiceFactory,
-  requestFactoryServiceFactory,
-  responseFactoryServiceFactory,
   routeMatcherMiddlewareServiceFactory,
   routesByNameServiceFactory,
   routesServiceFactory,
-  serverRequestFactoryServiceFactory,
-  streamFactoryServiceFactory,
-  streamFromResourceFactoryServiceFactory,
-  uriFactoryServiceFactory,
 } from '../src/service-factory.js';
 
 export type Config = {
@@ -55,15 +49,9 @@ export const configFactory = (env: string): Config => {
         ['match', matchServiceFactory],
         ['middlewares', middlewaresServiceFactory],
         ['pingHandler', pingHandlerServiceFactory],
-        ['requestFactory', requestFactoryServiceFactory],
-        ['responseFactory', responseFactoryServiceFactory],
         ['routeMatcherMiddleware', routeMatcherMiddlewareServiceFactory],
         ['routes', routesServiceFactory],
         ['routesByName', routesByNameServiceFactory],
-        ['serverRequestFactory', serverRequestFactoryServiceFactory],
-        ['streamFactory', streamFactoryServiceFactory],
-        ['streamFromResourceFactory', streamFromResourceFactoryServiceFactory],
-        ['uriFactory', uriFactoryServiceFactory],
       ]),
     },
     directories: new Map([
