@@ -71,6 +71,21 @@ jobs:
       - run: npm install -g corepack@latest \
       - run: corepack enable pnpm
       - run: pnpm install
+      - run: pnpm run test --run --no-cache
+      - run: pnpm run test:integration --run --no-cache
+  node24:
+    name: Node 24
+    runs-on: ubuntu-24.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: checkout node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: npm install -g corepack@latest \
+      - run: corepack enable pnpm
+      - run: pnpm install
       - run: pnpm run cs
       - run: pnpm run lint
       - run: pnpm run test --run --coverage --no-cache
@@ -88,18 +103,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  node24:
-    name: Node 24
-    runs-on: ubuntu-24.04
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: checkout node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "24"
-      - run: npm install -g corepack@latest \
-      - run: corepack enable pnpm
-      - run: pnpm install
-      - run: pnpm run test --run --no-cache
-      - run: pnpm run test:integration --run --no-cache
