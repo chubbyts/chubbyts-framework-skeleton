@@ -13,8 +13,15 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
+      - name: blacksmith docker
+        uses: useblacksmith/setup-docker-builder@v1
       - name: docker build / start
-        run: docker compose -f docker-compose.ci.yml up -d
+        env:
+          DOCKER_BUILDKIT: 1
+          COMPOSE_DOCKER_CLI_BUILD: 1
+        run: |
+          docker compose -f docker-compose.ci.yml build --build-arg BUILDKIT_INLINE_CACHE=1
+          docker compose -f docker-compose.ci.yml up -d --wait --wait-timeout 30
       - name: wait for nginx
         run: while ! nc -z localhost 443; do sleep 0.1; done
       - name: ping
@@ -27,8 +34,12 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
+      - name: blacksmith docker
+        uses: useblacksmith/setup-docker-builder@v1
       - name: docker build
-        run: docker build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -u) -f docker/development/node/Dockerfile . -t node
+        env:
+          DOCKER_BUILDKIT: 1
+        run: docker build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -u) --build-arg BUILDKIT_INLINE_CACHE=1 -f docker/development/node/Dockerfile . -t node
       - name: pnpm install
         run: docker container run -v ${GITHUB_WORKSPACE}:/app node /bin/bash -c 'source ~/.bashrc && pnpm install'
       - name: pnpm run cs
@@ -50,7 +61,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: checkout node
-        uses: actions/setup-node@v4
+        uses: useblacksmith/setup-node@v5
         with:
           node-version: "20"
       - run: npm install -g corepack@latest \
@@ -65,7 +76,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: checkout node
-        uses: actions/setup-node@v4
+        uses: useblacksmith/setup-node@v5
         with:
           node-version: "22"
       - run: npm install -g corepack@latest \
@@ -80,7 +91,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: checkout node
-        uses: actions/setup-node@v4
+        uses: useblacksmith/setup-node@v5
         with:
           node-version: "24"
       - run: npm install -g corepack@latest \
