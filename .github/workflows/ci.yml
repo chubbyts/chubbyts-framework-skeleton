@@ -9,7 +9,7 @@ on:
 jobs:
   docker-compose:
     name: docker-compose (production container)
-    runs-on: ubuntu-24.04
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -23,7 +23,7 @@ jobs:
         run: docker compose -f docker-compose.ci.yml stop
   docker:
     name: docker (development container)
-    runs-on: ubuntu-24.04
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -45,7 +45,7 @@ jobs:
         run: docker container run -v ${GITHUB_WORKSPACE}:/app node /bin/bash -c 'source ~/.bashrc && pnpm run build'
   node20:
     name: Node 20
-    runs-on: ubuntu-24.04
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -60,7 +60,7 @@ jobs:
       - run: pnpm run test:integration --run --no-cache
   node22:
     name: Node 22
-    runs-on: ubuntu-24.04
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -75,7 +75,7 @@ jobs:
       - run: pnpm run test:integration --run --no-cache
   node24:
     name: Node 24
-    runs-on: ubuntu-24.04
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     steps:
       - name: checkout
         uses: actions/checkout@v4
