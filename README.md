@@ -26,7 +26,7 @@ A minimal skeleton for [chubbyts-framework][5].
  * [@chubbyts/chubbyts-dic][2]: ^2.0.2
  * [@chubbyts/chubbyts-dic-config][3]: ^2.0.1
  * [@chubbyts/chubbyts-dic-types][4]: ^2.0.1
- * [@chubbyts/chubbyts-framework][5]: ^3.0.1
+ * [@chubbyts/chubbyts-framework][5]: ^3.0.2
  * [@chubbyts/chubbyts-framework-router-path-to-regexp][6]: ^3.0.0
  * [@chubbyts/chubbyts-http-error][7]: ^3.0.1
  * [@chubbyts/chubbyts-log-types][8]: ^3.0.1
