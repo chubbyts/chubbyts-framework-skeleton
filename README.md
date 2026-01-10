@@ -84,7 +84,7 @@ Service factories are the glue code of the dependeny injection container.
 
 ## Copyright
 
-2025 Dominik Zogg
+2026 Dominik Zogg
 
 [1]: https://www.npmjs.com/package/@chubbyts/chubbyts-framework-skeleton
 [2]: https://www.npmjs.com/package/@chubbyts/chubbyts-dic
