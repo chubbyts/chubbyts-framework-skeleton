@@ -34,7 +34,7 @@ A minimal skeleton for [chubbyts-framework][5].
  * [@chubbyts/chubbyts-undici-server][10]: ^1.0.1
  * [@chubbyts/chubbyts-undici-server-node][11]: ^1.0.1
  * [commander][12]: ^14.0.2
- * [pino][13]: ^10.1.0
+ * [pino][13]: ^10.1.1
 
 ## Environment
 
