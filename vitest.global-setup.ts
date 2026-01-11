@@ -4,7 +4,7 @@ import type { ChildProcessWithoutNullStreams } from 'child_process';
 import { spawn } from 'child_process';
 import fetch from 'cross-fetch';
 
-const getRandomInt = (min, max) => {
+const getRandomInt = (min: number, max: number) => {
   const ceiledMin = Math.ceil(min);
   const flooredMax = Math.floor(max);
   return Math.floor(Math.random() * (flooredMax - ceiledMin + 1)) + ceiledMin;
@@ -18,12 +18,8 @@ const iterationTimeout = 500;
 
 const startServer = async () => {
   const child = spawn('./node_modules/.bin/tsx', ['bootstrap/index.ts'], {
-    env: {
-      ...process.env,
-      NODE_ENV: 'test',
-      SERVER_HOST: testServerHost,
-      SERVER_PORT: `${testServerPort}`,
-    },
+    env: process.env,
+    //stdio: 'inherit', // helpful for debugging
     detached: true,
   }).once('error', (e) => {
     throw e;
@@ -49,6 +45,11 @@ const startServer = async () => {
 let httpServer: ChildProcessWithoutNullStreams;
 
 export const setup = async () => {
+  // eslint-disable-next-line functional/immutable-data
+  process.env.SERVER_HOST = testServerHost;
+  // eslint-disable-next-line functional/immutable-data
+  process.env.SERVER_PORT = `${testServerPort}`;
+
   httpServer = await startServer();
 
   // eslint-disable-next-line functional/immutable-data
