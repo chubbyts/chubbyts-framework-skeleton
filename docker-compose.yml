@@ -1,3 +1,4 @@
+name: chubbyts-framework-skeleton
 services:
   node:
     container_name: chubbyts-framework-skeleton-node
