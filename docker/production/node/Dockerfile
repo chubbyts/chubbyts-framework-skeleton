@@ -12,6 +12,7 @@ RUN dnf install -y 'dnf-command(config-manager)' \
 RUN dnf install -y \
     glibc-langpack-de \
     langpacks-de \
+    libatomic \
     mimalloc \
     mimalloc-devel \
     nmap-ncat \

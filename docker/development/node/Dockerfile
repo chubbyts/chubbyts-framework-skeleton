@@ -12,6 +12,7 @@ RUN dnf install -y \
     git \
     glibc-langpack-de \
     langpacks-de \
+    libatomic \
     mimalloc \
     mimalloc-devel \
     nmap-ncat \
