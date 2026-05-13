@@ -34,6 +34,8 @@ services:
       # opencode - coding agent
       - ~/.config/opencode/tui.json:/home/node/.config/opencode/tui.json
       - ~/.local/share/opencode/auth.json:/home/node/.local/share/opencode/auth.json
+      # pi - coding agent
+      - ~/.pi/agent/auth.json:/home/node/.pi/agent/auth.json
   nginx:
     container_name: chubbyts-framework-skeleton-nginx
     hostname: chubbyts-framework-skeleton-nginx
