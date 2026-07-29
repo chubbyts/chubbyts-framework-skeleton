@@ -12,7 +12,7 @@ describe('handler', () => {
 
     expect(response.status).toBe(200);
     expect(response.statusText).toBe('OK');
-    expect(Object.fromEntries([...response.headers.entries()])).toMatchInlineSnapshot(`
+    expect(Object.fromEntries(response.headers.entries())).toMatchInlineSnapshot(`
       {
         "cache-control": "no-cache, no-store, must-revalidate",
         "content-type": "application/json",
