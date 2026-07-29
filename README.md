@@ -23,17 +23,17 @@ A minimal skeleton for [chubbyts-framework][5].
 ## Requirements
 
  * node: 22
- * [@chubbyts/chubbyts-dic][2]: ^2.2.0
- * [@chubbyts/chubbyts-dic-config][3]: ^2.2.0
- * [@chubbyts/chubbyts-dic-types][4]: ^2.2.0
- * [@chubbyts/chubbyts-framework][5]: ^3.1.3
- * [@chubbyts/chubbyts-framework-router-path-to-regexp][6]: ^3.1.3
- * [@chubbyts/chubbyts-http-error][7]: ^3.3.0
- * [@chubbyts/chubbyts-log-types][8]: ^3.2.0
- * [@chubbyts/chubbyts-pino-adapter][9]: ^3.2.0
- * [@chubbyts/chubbyts-undici-server][10]: ^1.1.3
- * [@chubbyts/chubbyts-undici-server-node][11]: ^1.1.3
- * [commander][12]: ^14.0.3
+ * [@chubbyts/chubbyts-dic][2]: ^2.3.0
+ * [@chubbyts/chubbyts-dic-config][3]: ^2.3.0
+ * [@chubbyts/chubbyts-dic-types][4]: ^2.3.0
+ * [@chubbyts/chubbyts-framework][5]: ^3.2.0
+ * [@chubbyts/chubbyts-framework-router-path-to-regexp][6]: ^3.2.0
+ * [@chubbyts/chubbyts-http-error][7]: ^3.4.0
+ * [@chubbyts/chubbyts-log-types][8]: ^3.3.0
+ * [@chubbyts/chubbyts-pino-adapter][9]: ^3.3.0
+ * [@chubbyts/chubbyts-undici-server][10]: ^1.2.0
+ * [@chubbyts/chubbyts-undici-server-node][11]: ^1.2.0
+ * [commander][12]: ^15.0.0
  * [pino][13]: ^10.3.1
 
 ## Environment
