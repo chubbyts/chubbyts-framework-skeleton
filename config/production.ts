@@ -26,6 +26,9 @@ export type Config = {
   server: {
     host: string;
     port: number;
+    baseUrl?: string;
+    requestBodyTimeoutMs?: number;
+    responseSendTimeoutMs?: number;
   };
 };
 
@@ -73,6 +76,9 @@ export const configFactory = (env: string): Config => {
     server: {
       host: process.env.SERVER_HOST as string,
       port: parseInt(process.env.SERVER_PORT as string, 10),
+      baseUrl: process.env.SERVER_BASE_URL || undefined,
+      requestBodyTimeoutMs: undefined,
+      responseSendTimeoutMs: undefined,
     },
   };
 };

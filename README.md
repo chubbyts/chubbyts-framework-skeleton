@@ -32,7 +32,7 @@ A minimal skeleton for [chubbyts-framework][5].
  * [@chubbyts/chubbyts-log-types][8]: ^3.3.0
  * [@chubbyts/chubbyts-pino-adapter][9]: ^3.3.0
  * [@chubbyts/chubbyts-undici-server][10]: ^1.2.0
- * [@chubbyts/chubbyts-undici-server-node][11]: ^1.2.0
+ * [@chubbyts/chubbyts-undici-server-node][11]: ^1.3.0
  * [commander][12]: ^15.0.0
  * [pino][13]: ^10.3.1
 
