@@ -71,6 +71,7 @@ USER root
 COPY --from=build /app-build/dist /app
 COPY --from=build /app-build/package.json /app
 COPY --from=build /app-build/pnpm-lock.yaml /app
+COPY --from=build /app-build/pnpm-workspace.yaml /app
 
 RUN chown -Rf node: /app
 

@@ -2,15 +2,20 @@ import { createWriteStream, realpathSync } from 'fs';
 import type { DestinationStream, LoggerOptions } from 'pino';
 import type { ConfigFactory } from '@chubbyts/chubbyts-dic-config/dist/dic-config';
 import {
+  bodyFactoryServiceFactory,
   cleanDirectoriesCommandServiceFactory,
   errorMiddlewareServiceFactory,
   loggerServiceFactory,
   matchServiceFactory,
   middlewaresServiceFactory,
   pingHandlerServiceFactory,
+  requestFactoryServiceFactory,
+  responseFactoryServiceFactory,
   routeMatcherMiddlewareServiceFactory,
   routesByNameServiceFactory,
   routesServiceFactory,
+  serverRequestFactoryServiceFactory,
+  uriFactoryServiceFactory,
 } from '../src/service-factory.js';
 
 export type Config = {
@@ -46,15 +51,20 @@ export const configFactory = (env: string): Config => {
     debug: false,
     dependencies: {
       factories: new Map<string, ConfigFactory>([
+        ['bodyFactory', bodyFactoryServiceFactory],
         ['cleanDirectoriesCommand', cleanDirectoriesCommandServiceFactory],
         ['errorMiddleware', errorMiddlewareServiceFactory],
         ['logger', loggerServiceFactory],
         ['match', matchServiceFactory],
         ['middlewares', middlewaresServiceFactory],
         ['pingHandler', pingHandlerServiceFactory],
+        ['requestFactory', requestFactoryServiceFactory],
+        ['responseFactory', responseFactoryServiceFactory],
         ['routeMatcherMiddleware', routeMatcherMiddlewareServiceFactory],
         ['routes', routesServiceFactory],
         ['routesByName', routesByNameServiceFactory],
+        ['serverRequestFactory', serverRequestFactoryServiceFactory],
+        ['uriFactory', uriFactoryServiceFactory],
       ]),
     },
     directories: new Map([
