@@ -42,7 +42,7 @@ describe('service-factory', () => {
 
     expect(cleanDirectoriesCommandServiceFactory(container)).toBeInstanceOf(Function);
 
-    expect(containerMocks.length).toBe(0);
+    expect(containerMocks).toHaveLength(0);
   });
 
   test('errorMiddlewareServiceFactory', () => {
@@ -71,7 +71,7 @@ describe('service-factory', () => {
 
     expect(errorMiddlewareServiceFactory(container)).toBeInstanceOf(Function);
 
-    expect(containerMocks.length).toBe(0);
+    expect(containerMocks).toHaveLength(0);
   });
 
   test('loggerServiceFactory', () => {
@@ -90,7 +90,7 @@ describe('service-factory', () => {
 
     expect(loggerServiceFactory(container)).toBeInstanceOf(Object);
 
-    expect(containerMocks.length).toBe(0);
+    expect(containerMocks).toHaveLength(0);
   });
 
   test('matchServiceFactory', () => {
@@ -104,7 +104,7 @@ describe('service-factory', () => {
 
     expect(matchServiceFactory(container)).toBeInstanceOf(Function);
 
-    expect(containerMocks.length).toBe(0);
+    expect(containerMocks).toHaveLength(0);
   });
 
   test('middlewaresServiceFactory', async () => {
@@ -141,8 +141,8 @@ describe('service-factory', () => {
       middlewares.map(() => response),
     );
 
-    expect(handlerMocks.length).toBe(0);
-    expect(containerMocks.length).toBe(0);
+    expect(handlerMocks).toHaveLength(0);
+    expect(containerMocks).toHaveLength(0);
   });
 
   test('pingHandlerServiceFactory', () => {
@@ -161,7 +161,7 @@ describe('service-factory', () => {
 
     expect(pingHandlerServiceFactory(container)).toBeInstanceOf(Function);
 
-    expect(containerMocks.length).toBe(0);
+    expect(containerMocks).toHaveLength(0);
   });
 
   test('requestFactoryServiceFactory', () => {
@@ -180,7 +180,7 @@ describe('service-factory', () => {
 
     expect(requestFactoryServiceFactory(container)).toBeInstanceOf(Function);
 
-    expect(containerMocks.length).toBe(0);
+    expect(containerMocks).toHaveLength(0);
   });
 
   test('responseFactoryServiceFactory', () => {
@@ -194,7 +194,7 @@ describe('service-factory', () => {
 
     expect(responseFactoryServiceFactory(container)).toBeInstanceOf(Function);
 
-    expect(containerMocks.length).toBe(0);
+    expect(containerMocks).toHaveLength(0);
   });
 
   test('routeMatcherMiddlewareServiceFactory', () => {
@@ -208,7 +208,7 @@ describe('service-factory', () => {
 
     expect(routeMatcherMiddlewareServiceFactory(container)).toBeInstanceOf(Function);
 
-    expect(containerMocks.length).toBe(0);
+    expect(containerMocks).toHaveLength(0);
   });
 
   test('routesServiceFactory', async () => {
@@ -244,7 +244,7 @@ describe('service-factory', () => {
 
     expect(await Promise.all(routes.map((route) => route.handler(serverRequest)))).toEqual(routes.map(() => response));
 
-    expect(containerMocks.length).toBe(0);
+    expect(containerMocks).toHaveLength(0);
   });
 
   test('routesByNameServiceFactory', () => {
@@ -258,7 +258,7 @@ describe('service-factory', () => {
 
     expect(routesByNameServiceFactory(container)).toBeInstanceOf(Map);
 
-    expect(containerMocks.length).toBe(0);
+    expect(containerMocks).toHaveLength(0);
   });
 
   test('serverRequestFactoryServiceFactory', () => {
@@ -272,7 +272,7 @@ describe('service-factory', () => {
 
     expect(serverRequestFactoryServiceFactory(container)).toBeInstanceOf(Function);
 
-    expect(containerMocks.length).toBe(0);
+    expect(containerMocks).toHaveLength(0);
   });
 
   test('uriFactoryServiceFactory', () => {

@@ -46,7 +46,7 @@ describe('handler', () => {
       body,
     });
 
-    expect(responseFactoryMocks.length).toBe(0);
-    expect(bodyFactoryMocks.length).toBe(0);
+    expect(responseFactoryMocks).toHaveLength(0);
+    expect(bodyFactoryMocks).toHaveLength(0);
   });
 });

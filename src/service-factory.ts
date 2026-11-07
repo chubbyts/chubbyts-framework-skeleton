@@ -10,11 +10,9 @@ import type { Route } from '@chubbyts/chubbyts-framework/router/route';
 import { createGetRoute } from '@chubbyts/chubbyts-framework/router/route';
 import { createPathToRegexpMatch } from '@chubbyts/chubbyts-framework-router-path-to-regexp/path-to-regexp-router';
 import {
-  createBodyFactory,
   createRequestFactory,
   createResponseFactory,
   createServerRequestFactory,
-  createUriFactory,
 } from '@chubbyts/chubbyts-http/message-factory';
 import type {
   BodyFactory,
@@ -33,7 +31,10 @@ import type { CleanDirectoriesCommand } from './command.js';
 import { createCleanDirectoriesCommand } from './command.js';
 import { createPingHandler } from './handler.js';
 
-export const bodyFactoryServiceFactory = createBodyFactory;
+export {
+  createBodyFactory as bodyFactoryServiceFactory,
+  createUriFactory as uriFactoryServiceFactory,
+} from '@chubbyts/chubbyts-http/message-factory';
 
 export const cleanDirectoriesCommandServiceFactory = (container: Container): CleanDirectoriesCommand => {
   return createCleanDirectoriesCommand(container.get<Config>('config').directories, container.get<Logger>('logger'));
@@ -102,5 +103,3 @@ export const routesByNameServiceFactory = (container: Container): RoutesByName =
 export const serverRequestFactoryServiceFactory = (container: Container): ServerRequestFactory => {
   return createServerRequestFactory(container.get<RequestFactory>('requestFactory'));
 };
-
-export const uriFactoryServiceFactory = createUriFactory;
