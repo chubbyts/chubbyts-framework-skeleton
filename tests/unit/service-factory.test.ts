@@ -1,7 +1,7 @@
-import type { Container } from '@chubbyts/chubbyts-dic-types/dist/container';
+import type { Container } from '@chubbyts/chubbyts-dic-types/container';
 import { describe, expect, test } from 'vitest';
-import { useObjectMock } from '@chubbyts/chubbyts-function-mock/dist/object-mock';
-import { useFunctionMock } from '@chubbyts/chubbyts-function-mock/dist/function-mock';
+import { useObjectMock } from '@chubbyts/chubbyts-function-mock/object-mock';
+import { useFunctionMock } from '@chubbyts/chubbyts-function-mock/function-mock';
 import type { Handler } from '@chubbyts/chubbyts-http-types/handler';
 import type { Response, ServerRequest } from '@chubbyts/chubbyts-http-types/message';
 import {

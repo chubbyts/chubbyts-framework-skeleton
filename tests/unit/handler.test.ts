@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import type { Body, ServerRequest, Response } from '@chubbyts/chubbyts-http-types/message';
 import type { BodyFactory, ResponseFactory } from '@chubbyts/chubbyts-http-types/message-factory';
-import { useFunctionMock } from '@chubbyts/chubbyts-function-mock/dist/function-mock';
+import { useFunctionMock } from '@chubbyts/chubbyts-function-mock/function-mock';
 import { createPingHandler } from '../../src/handler.js';
 
 describe('handler', () => {

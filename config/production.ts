@@ -1,6 +1,6 @@
 import { createWriteStream, realpathSync } from 'fs';
 import type { DestinationStream, LoggerOptions } from 'pino';
-import type { ConfigFactory } from '@chubbyts/chubbyts-dic-config/dist/dic-config';
+import type { ConfigFactory } from '@chubbyts/chubbyts-dic-config/dic-config';
 import {
   bodyFactoryServiceFactory,
   cleanDirectoriesCommandServiceFactory,

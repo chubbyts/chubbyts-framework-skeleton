@@ -1,4 +1,4 @@
-import type { Container } from '@chubbyts/chubbyts-dic-types/dist/container';
+import type { Container } from '@chubbyts/chubbyts-dic-types/container';
 import { createLazyMiddleware } from '@chubbyts/chubbyts-framework/middleware/lazy-middleware';
 import { createErrorMiddleware } from '@chubbyts/chubbyts-framework/middleware/error-middleware';
 import { createRouteMatcherMiddleware } from '@chubbyts/chubbyts-framework/middleware/route-matcher-middleware';
@@ -22,9 +22,9 @@ import type {
   UriFactory,
 } from '@chubbyts/chubbyts-http-types/message-factory';
 import type { Middleware } from '@chubbyts/chubbyts-http-types/middleware';
-import type { Logger } from '@chubbyts/chubbyts-log-types/dist/log';
-import { createLogger } from '@chubbyts/chubbyts-log-types/dist/log';
-import { createPinoAdapter } from '@chubbyts/chubbyts-pino-adapter/dist/pino-adapter';
+import type { Logger } from '@chubbyts/chubbyts-log-types/log';
+import { createLogger } from '@chubbyts/chubbyts-log-types/log';
+import { createPinoAdapter } from '@chubbyts/chubbyts-pino-adapter/pino-adapter';
 import { pino } from 'pino';
 import type { Config } from '../config/production.js';
 import type { CleanDirectoriesCommand } from './command.js';
