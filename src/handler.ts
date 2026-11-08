@@ -2,8 +2,9 @@ import type { Handler } from '@chubbyts/chubbyts-http-types/handler';
 import type { Response } from '@chubbyts/chubbyts-http-types/message';
 import type { BodyFactory, ResponseFactory } from '@chubbyts/chubbyts-http-types/message-factory';
 
-export const createPingHandler = (responseFactory: ResponseFactory, bodyFactory: BodyFactory): Handler => {
-  return async (): Promise<Response> => {
+export const createPingHandler =
+  (responseFactory: ResponseFactory, bodyFactory: BodyFactory): Handler =>
+  async (): Promise<Response> => {
     const response = responseFactory(200);
 
     return {
@@ -18,4 +19,3 @@ export const createPingHandler = (responseFactory: ResponseFactory, bodyFactory:
       body: bodyFactory(JSON.stringify({ datetime: new Date().toISOString() })),
     };
   };
-};

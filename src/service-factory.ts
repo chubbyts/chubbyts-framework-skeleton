@@ -10,9 +10,11 @@ import type { Route } from '@chubbyts/chubbyts-framework/router/route';
 import { createGetRoute } from '@chubbyts/chubbyts-framework/router/route';
 import { createPathToRegexpMatch } from '@chubbyts/chubbyts-framework-router-path-to-regexp/path-to-regexp-router';
 import {
+  createBodyFactory,
   createRequestFactory,
   createResponseFactory,
   createServerRequestFactory,
+  createUriFactory,
 } from '@chubbyts/chubbyts-http/message-factory';
 import type {
   BodyFactory,
@@ -31,23 +33,18 @@ import type { CleanDirectoriesCommand } from './command.js';
 import { createCleanDirectoriesCommand } from './command.js';
 import { createPingHandler } from './handler.js';
 
-export {
-  createBodyFactory as bodyFactoryServiceFactory,
-  createUriFactory as uriFactoryServiceFactory,
-} from '@chubbyts/chubbyts-http/message-factory';
+export const bodyFactoryServiceFactory = (): BodyFactory => createBodyFactory();
 
-export const cleanDirectoriesCommandServiceFactory = (container: Container): CleanDirectoriesCommand => {
-  return createCleanDirectoriesCommand(container.get<Config>('config').directories, container.get<Logger>('logger'));
-};
+export const cleanDirectoriesCommandServiceFactory = (container: Container): CleanDirectoriesCommand =>
+  createCleanDirectoriesCommand(container.get<Config>('config').directories, container.get<Logger>('logger'));
 
-export const errorMiddlewareServiceFactory = (container: Container): Middleware => {
-  return createErrorMiddleware(
+export const errorMiddlewareServiceFactory = (container: Container): Middleware =>
+  createErrorMiddleware(
     container.get<ResponseFactory>('responseFactory'),
     container.get<BodyFactory>('bodyFactory'),
     container.get<Config>('config').debug,
     container.get<Logger>('logger'),
   );
-};
 
 export const loggerServiceFactory = (container: Container): Logger => {
   const { options, stream } = container.get<Config>('config').pino;
@@ -55,9 +52,8 @@ export const loggerServiceFactory = (container: Container): Logger => {
   return createLogger(createPinoAdapter(pino(options, stream)));
 };
 
-export const matchServiceFactory = (container: Container): Match => {
-  return createPathToRegexpMatch(container.get<RoutesByName>('routesByName'));
-};
+export const matchServiceFactory = (container: Container): Match =>
+  createPathToRegexpMatch(container.get<RoutesByName>('routesByName'));
 
 export const middlewaresServiceFactory = (container: Container): Array<Middleware> => {
   const m = (name: string) => createLazyMiddleware(container, name);
@@ -65,24 +61,17 @@ export const middlewaresServiceFactory = (container: Container): Array<Middlewar
   return [m('errorMiddleware'), m('routeMatcherMiddleware')];
 };
 
-export const pingHandlerServiceFactory = (container: Container) => {
-  return createPingHandler(
-    container.get<ResponseFactory>('responseFactory'),
-    container.get<BodyFactory>('bodyFactory'),
-  );
-};
+export const pingHandlerServiceFactory = (container: Container) =>
+  createPingHandler(container.get<ResponseFactory>('responseFactory'), container.get<BodyFactory>('bodyFactory'));
 
-export const requestFactoryServiceFactory = (container: Container): RequestFactory => {
-  return createRequestFactory(container.get<UriFactory>('uriFactory'), container.get<BodyFactory>('bodyFactory'));
-};
+export const requestFactoryServiceFactory = (container: Container): RequestFactory =>
+  createRequestFactory(container.get<UriFactory>('uriFactory'), container.get<BodyFactory>('bodyFactory'));
 
-export const responseFactoryServiceFactory = (container: Container): ResponseFactory => {
-  return createResponseFactory(container.get<BodyFactory>('bodyFactory'));
-};
+export const responseFactoryServiceFactory = (container: Container): ResponseFactory =>
+  createResponseFactory(container.get<BodyFactory>('bodyFactory'));
 
-export const routeMatcherMiddlewareServiceFactory = (container: Container): Middleware => {
-  return createRouteMatcherMiddleware(container.get<Match>('match'));
-};
+export const routeMatcherMiddlewareServiceFactory = (container: Container): Middleware =>
+  createRouteMatcherMiddleware(container.get<Match>('match'));
 
 export const routesServiceFactory = (container: Container): Array<Route> => {
   const h = (name: string) => createLazyHandler(container, name);
@@ -96,10 +85,10 @@ export const routesServiceFactory = (container: Container): Array<Route> => {
   ];
 };
 
-export const routesByNameServiceFactory = (container: Container): RoutesByName => {
-  return createRoutesByName(container.get<Array<Route>>('routes'));
-};
+export const routesByNameServiceFactory = (container: Container): RoutesByName =>
+  createRoutesByName(container.get<Array<Route>>('routes'));
 
-export const serverRequestFactoryServiceFactory = (container: Container): ServerRequestFactory => {
-  return createServerRequestFactory(container.get<RequestFactory>('requestFactory'));
-};
+export const serverRequestFactoryServiceFactory = (container: Container): ServerRequestFactory =>
+  createServerRequestFactory(container.get<RequestFactory>('requestFactory'));
+
+export const uriFactoryServiceFactory = (): UriFactory => createUriFactory();
