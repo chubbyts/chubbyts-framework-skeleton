@@ -1,7 +1,8 @@
+.home
 .pnpm-store
 .stryker-tmp
 coverage
 dist
 node_modules
-var
 pnpm-lock.yaml
+var

@@ -16,6 +16,8 @@ services:
       SERVER_PORT: '1234'
       SSH_AUTH_SOCK: /ssh-agent
       LLAMA_BASE_URL: http://host.docker.internal:9931/v1
+      # claude: keep .claude.json within the mounted ~/.claude instead of ~/.claude.json
+      CLAUDE_CONFIG_DIR: /home/node/.claude
     ports:
       - '1235:1235'
     volumes:
@@ -35,21 +37,16 @@ services:
       # npm
       - ~/.npmrc:/home/node/.npmrc
       # claude - coding agent
-      - ~/.claude.json:/home/node/.claude.json
-      - ~/.claude/.credentials.json:/home/node/.claude/.credentials.json
-      - ~/.claude/settings.json:/home/node/.claude/settings.json
+      - ${PWD}/.home/.claude:/home/node/.claude
       # codex - coding agent
-      - ~/.codex/auth.json:/home/node/.codex/auth.json
-      - ~/.codex/config.toml:/home/node/.codex/config.toml
+      - ${PWD}/.home/.codex:/home/node/.codex
       # gemini - coding agent
-      - ~/.gemini/oauth_creds.json:/home/node/.gemini/oauth_creds.json
-      - ~/.gemini/settings.json:/home/node/.gemini/settings.json
+      - ${PWD}/.home/.gemini:/home/node/.gemini
       # opencode - coding agent
-      - ~/.config/opencode/opencode.jsonc:/home/node/.config/opencode/opencode.jsonc
-      - ~/.config/opencode/tui.json:/home/node/.config/opencode/tui.json
-      - ~/.local/share/opencode/auth.json:/home/node/.local/share/opencode/auth.json
+      - ${PWD}/.home/.config/opencode:/home/node/.config/opencode
+      - ${PWD}/.home/.local/share/opencode:/home/node/.local/share/opencode
       # pi - coding agent
-      - ~/.pi/agent/auth.json:/home/node/.pi/agent/auth.json
+      - ${PWD}/.home/.pi/agent:/home/node/.pi/agent
   nginx:
     container_name: chubbyts-framework-skeleton-nginx
     hostname: chubbyts-framework-skeleton-nginx
